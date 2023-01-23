@@ -10,13 +10,13 @@ Menu >> iniciarInterfaz [
 	"scope: class-variables  &  instance-variables"
 	|y|
 	nombre := 'Menu'.
-	colBotones add: (Boton crearBoton: 'Agregar_Bibloteca').
-	colBotones add: (Boton crearBoton: 'Registrar_Usuario').
-	colBotones add: (Boton crearBoton: 'Solicitar_Prestamo').
-	colBotones add: (Boton crearBoton: 'Cambiar_Modelidad ').
-	colBotones add: (Boton crearBoton: 'Actualizar_Bibloteca ').
-	colBotones add: (Boton crearBoton: 'Infromacion_Usuario ').
-	colBotones add: (Boton crearBoton: 'Informacion_Bibloteca').
+	colBotones add: (BotonTipo1 crearBoton: 'Agregar Bibloteca').
+	colBotones add: (BotonTipo1 crearBoton: 'Registrar Usuario').
+	colBotones add: (BotonTipo1 crearBoton: 'Solicitar Prestamo').
+	colBotones add: (BotonTipo1 crearBoton: 'Cambiar Modalidad').
+	colBotones add: (BotonTipo1 crearBoton: 'Actualizar Bibloteca').
+	colBotones add: (BotonTipo1 crearBoton: 'Informacion Usuario').
+	colBotones add: (BotonTipo1 crearBoton: 'Informacion Bibloteca').
 	y:=50.
 	colBotones do:[:boton|
 		self addMorph:boton.

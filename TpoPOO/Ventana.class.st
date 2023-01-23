@@ -12,7 +12,7 @@ Class {
 Ventana >> cambiarInterfaz:nombre [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-	interfaz hide.
+	interfaz delete.
 	self ponerInterfaz: nombre.
 ]
 
@@ -22,7 +22,13 @@ Ventana >> iniciarInterfaces [
 	"scope: class-variables  &  instance-variables"	
 			
 	colInterfaces add: (Menu crear:self). 
-	colInterfaces add: (Agregar_Bibloteca crear:self)
+	colInterfaces add: (AgregarBibloteca crear:self).
+	colInterfaces add: (CambiarModalidad  crear:self).
+	colInterfaces add: (ActualizarBibloteca crear:self).
+	colInterfaces add: (InformacionBibloteca  crear:self).
+	colInterfaces add: (InformacionUsuario  crear:self).
+	colInterfaces add: (RegistrarUsuario  crear:self).
+	colInterfaces add: (SolicitarPrestamo crear:self).
 ]
 
 { #category : #'as yet unclassified' }

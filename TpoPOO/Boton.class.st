@@ -2,8 +2,8 @@ Class {
 	#name : #Boton,
 	#superclass : #SimpleButtonMorph,
 	#instVars : [
-		'nombre',
-		'bloque'
+		'bloque',
+		'nombre'
 	],
 	#category : #'TpoPOO-Visual'
 }
@@ -25,24 +25,6 @@ Boton >> getNombre [.
 	"scope: class-variables  &  instance-variables"	
 			
 	^nombre.
-]
-
-{ #category : #'as yet unclassified' }
-Boton >> iniciar:string [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"	
-			
-	
-	nombre := string.
-	self label:nombre.
-	self extent: 400@50.
-	self color: Color gray.
-	self borderWidth: 1.
-	self borderColor: Color white.
-	self roundedCorners: 10.
-	
-	
-	
 ]
 
 { #category : #'as yet unclassified' }

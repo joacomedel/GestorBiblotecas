@@ -33,12 +33,17 @@ Interfaz >> comprobarNombre:nombreIn [
 Interfaz >> iniciar [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
+	|boton|
 	self extent: 480@854.
 	self color: Color brown.
 	self borderWidth: 2.
 	self borderColor: Color white.
 	colBotones := OrderedCollection new.
 	self iniciarInterfaz.
+	boton := BotonTipo2 crearBoton:'X'.
+	self addMorph:boton.
+	boton position: 444@1.
+	boton mouseAction: [ventana close].  
 ]
 
 { #category : #'as yet unclassified' }
