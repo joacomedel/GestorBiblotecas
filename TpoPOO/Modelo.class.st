@@ -2,7 +2,10 @@ Class {
 	#name : #Modelo,
 	#superclass : #Object,
 	#instVars : [
-		'controlador'
+		'controlador',
+		'colBiblotecas',
+		'colUsuarios',
+		'colAutores'
 	],
 	#category : #'TpoPOO-Modelo'
 }
