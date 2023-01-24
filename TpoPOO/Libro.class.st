@@ -20,5 +20,5 @@ Libro >> inicializarTitulo: unTitulo editorial: unaEditorial anio: unAnio [
     titulo := unTitulo.
     editorial := unaEditorial.
     anioAutores := unAnio.
-    autores := Set new.
+    autores := OrderedCollection new.
 ]

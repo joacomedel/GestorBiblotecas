@@ -6,14 +6,15 @@ Class {
 		'apellido',
 		'dni',
 		'contrasena',
-		'colBibliotecasInteres'
+		'colBibliotecasInteres',
+		'plus'
 	],
 	#category : #'TpoPOO-Modelo'
 }
 
 { #category : #'as yet unclassified' }
-Usuario class >> nuevoNombre: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena [
-    ^ self new inicializarNombre: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena.
+Usuario class >> nuevoNombre: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus: unPlus [
+     ^ self new inicializarNombre: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus.
 ]
 
 { #category : #'as yet unclassified' }
@@ -22,12 +23,13 @@ Usuario >> agregarBibliotecaDeInteres: unaBiblioteca [
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> inicializarNombre: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena [
+Usuario >> inicializarNombre: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus [
     nombre := unNombre.
     apellido := unApellido.
     dni := unDni.
     contrasena := unaContrasena.
-    colBibliotecasInteres  := Set new.
+	plus := unPlus.
+    colBibliotecasInteres  := OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -39,4 +41,12 @@ Usuario >> solicitarPrestamoLibro: unLibro deBiblioteca: unaBiblioteca [
 	prestamo fechaPrestamo: Date today.
 	prestamo agregarLibro: unLibro.
 	unaBiblioteca agregarPrestamo: prestamo.
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> verificarDni:unDni [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^dni = unDni.
 ]

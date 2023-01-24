@@ -27,4 +27,19 @@ Modelo >> incializar:controladorIn [
 	"scope: class-variables  &  instance-variables"	
 			
 	controlador:= controladorIn.
+	colAutores := OrderedCollection new.
+	colBiblotecas := OrderedCollection new.
+	colUsuarios := OrderedCollection new.
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	|existeUsuario|
+	existeUsuario := colUsuarios  anySatisfy: [:u | u verificarDni: unDni].
+	
+	existeUsuario ifTrue: [colUsuarios add: (Usuario nuevoNombre: unNombre  apellido: unApellido   dni: unDni   contrasena: unaContrasena plus:unPlus)].
+	
+	^existeUsuario not.
 ]

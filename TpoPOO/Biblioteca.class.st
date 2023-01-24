@@ -25,8 +25,8 @@ Biblioteca >> Identificador: unIdentificador direccion: unaDireccion nombre: unN
     nombre := unNombre.
     telefonoRepresentante := unTelefono.
     nombreRepresentate  := unRepresentante.
-    libros := Set new.
-    prestamos := Set new.
+    libros := OrderedCollection new.
+    prestamos := OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
