@@ -38,8 +38,7 @@ Modelo >> registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena:
 	"scope: class-variables  &  instance-variables"	
 	|existeUsuario|
 	existeUsuario := colUsuarios  anySatisfy: [:u | u verificarDni: unDni].
-	
-	existeUsuario ifTrue: [colUsuarios add: (Usuario nuevoNombre: unNombre  apellido: unApellido   dni: unDni   contrasena: unaContrasena plus:unPlus)].
+	existeUsuario ifFalse: [colUsuarios add: (Usuario nuevoNombre: unNombre  apellido: unApellido   dni: unDni   contrasena: unaContrasena plus:unPlus)].
 	
 	^existeUsuario not.
 ]

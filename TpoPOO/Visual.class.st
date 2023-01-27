@@ -25,8 +25,16 @@ Visual >> incializar:controladorIn [.
 	"scope: class-variables  &  instance-variables"	
 			
 	controlador := controladorIn.
-	ventana := Ventana  new.
-	ventana iniciarVentana.
+	ventana := Ventana crear:self.
 	ventana openInWorld.
 	
+]
+
+{ #category : #'as yet unclassified' }
+Visual >> registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus [
+
+	|registro|
+	
+	registro := controlador  registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus.
+	^registro
 ]

@@ -29,3 +29,12 @@ Controlador >> incializarVisual:visualIn modelo:modeloIn [.
 	visual := visualIn.
 	modelo := modeloIn.
 ]
+
+{ #category : #'as yet unclassified' }
+Controlador >> registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus [
+
+	|registro|
+	
+	registro := modelo registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus.
+	^registro
+]

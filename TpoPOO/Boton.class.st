@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Boton class >> crearBoton:string [
+Boton class >> crear:string [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"	
 			

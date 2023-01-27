@@ -12,7 +12,7 @@ InterfazTipo1 >> iniciarBotonMenu [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 	|boton|
-	boton := (BotonTipo1 crearBoton: 'Menu').
+	boton := (BotonTipo1 crear: 'Menu').
 	colBotones add: boton.
 	boton position: 40@780.
 	self addMorph:boton.
