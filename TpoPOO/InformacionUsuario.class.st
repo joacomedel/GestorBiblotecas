@@ -4,23 +4,33 @@ Class {
 	#instVars : [
 		'colCampos',
 		'colAviso',
-		'tablaDatos'
+		'tablaDatos',
+		'colFilas'
 	],
 	#category : #'TpoPOO-Visual'
 }
+
+{ #category : #'as yet unclassified' }
+InformacionUsuario >> alternarModalidad:dni contraseña:contraseña [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	ventana alternarModalidad:dni contraseña:contraseña.
+	tablaDatos alternarModalidad.
+]
 
 { #category : #'as yet unclassified' }
 InformacionUsuario >> buscarUsuario [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 	|noPuedeBuscar colDatos|
-	noPuedeBuscar := colCampos anySatisfy:[:campo | campo text isEmpty].
+	tablaDatos = nil ifFalse:[tablaDatos delete].
+	noPuedeBuscar := colCampos anySatisfy:[:campo | (campo text) isEmpty].
+	noPuedeBuscar ifTrue:[self mostrarAviso:1] ifFalse:[colDatos := ventana buscarUsuario:((colCampos at:1) getTexto)contraseña:((colCampos at:2) getTexto)]; ifFalse:[
+	colDatos isEmpty ifTrue:[self mostrarAviso:2] ifFalse:[self usuarioEncontrado:colDatos ]
+		]
 	
-	noPuedeBuscar ifTrue:[self mostrarAviso:1] ifFalse:[colDatos := ventana buscarUsuario:((colCampos at:1) text)contraseña:((colCampos at:2) text)].
-	
-	colDatos isEmpty ifTrue:[self mostrarAviso:2] ifFalse:[tablaDatos := TablaMorph crear:colDatos. self addMorph: tablaDatos . tablaDatos position:100@300.
-		
-		]		
+			
 ]
 
 { #category : #'as yet unclassified' }
@@ -46,6 +56,9 @@ InformacionUsuario >> iniciarInterfaz [
 	colAviso := OrderedCollection new.
 	colAviso add: (MorphAviso crear:'Faltan campos por rellenar').
 	colAviso add: (MorphAviso crear:'Usuario no encontrado , cambiar dni o contraseña').
+	
+	colFilas := OrderedCollection new.
+	colFilas add:'nombre' ;add:'apellido';add:'dni';add:'plus'.
 	self iniciarBotonMenu.
 	
 ]
@@ -59,4 +72,19 @@ InformacionUsuario >> mostrarAviso:x [
 	error := colAviso at:x.
 	self addMorphCentered:error.
 	error position: 60@650.
+]
+
+{ #category : #'as yet unclassified' }
+InformacionUsuario >> usuarioEncontrado:colDatos [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	| boton |
+	tablaDatos := InfoMorph crear: colDatos filas:colFilas. self addMorphCentered:tablaDatos . tablaDatos position:100@300.
+	boton := BotonTipo1 crear:'Cambiar modalidad plus'.
+	boton mouseAction: [self alternarModalidad:((colCampos at:1) getTexto) contraseña:((colCampos at:2) getTexto)].
+	boton position:40@600.
+	self addMorph: boton.
+	
+	
 ]

@@ -18,10 +18,18 @@ Ventana class >> crear:visualIn [
 ]
 
 { #category : #'as yet unclassified' }
-Ventana >> buscarUsuario:nombre contraseña:contraseña [
+Ventana >> alternarModalidad:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
+	visual alternarModalidad:dni contraseña:contraseña.
+]
+
+{ #category : #'as yet unclassified' }
+Ventana >> buscarUsuario:dni contraseña:contraseña [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	^ visual buscarUsuario:dni contraseña:contraseña.
 	
 ]
 

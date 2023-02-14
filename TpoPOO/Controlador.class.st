@@ -22,6 +22,21 @@ Controlador class >> newControlador [
 ]
 
 { #category : #'as yet unclassified' }
+Controlador >> alternarModalidad:dni contraseña:contraseña [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	modelo alternarModalidad:dni contraseña:contraseña.
+]
+
+{ #category : #'as yet unclassified' }
+Controlador >> buscarUsuario:dni contraseña:contraseña [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	^ modelo buscarUsuario:dni contraseña:contraseña.
+]
+
+{ #category : #'as yet unclassified' }
 Controlador >> incializarVisual:visualIn modelo:modeloIn [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	

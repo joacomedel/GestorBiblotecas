@@ -25,6 +25,14 @@ CampoDeTexto >> getNombre [.
 ]
 
 { #category : #'as yet unclassified' }
+CampoDeTexto >> getTexto [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ (self text) clone.
+]
+
+{ #category : #'as yet unclassified' }
 CampoDeTexto >> iniciar: unNombre [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
