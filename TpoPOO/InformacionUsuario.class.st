@@ -70,8 +70,8 @@ InformacionUsuario >> mostrarAviso:x [
 			
 	|error|
 	error := colAviso at:x.
-	self addMorphCentered:error.
-	error position: 60@650.
+	ventana addMorphCentered:error.
+	error position:(ventana position) + (40@600).
 ]
 
 { #category : #'as yet unclassified' }
@@ -80,10 +80,10 @@ InformacionUsuario >> usuarioEncontrado:colDatos [
 	"scope: class-variables  &  instance-variables"	
 			
 	| boton |
-	tablaDatos := InfoMorph crear: colDatos filas:colFilas. self addMorphCentered:tablaDatos . tablaDatos position:100@300.
+	tablaDatos := InfoMorph crear: colDatos filas:colFilas. self addMorphCentered:tablaDatos . tablaDatos position:(ventana position) + (100@300).
 	boton := BotonTipo1 crear:'Cambiar modalidad plus'.
 	boton mouseAction: [self alternarModalidad:((colCampos at:1) getTexto) contraseña:((colCampos at:2) getTexto)].
-	boton position:40@600.
+	boton position:(ventana position) + (40@700).
 	self addMorph: boton.
 	
 	

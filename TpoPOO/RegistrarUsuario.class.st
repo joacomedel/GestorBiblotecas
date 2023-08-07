@@ -27,7 +27,7 @@ RegistrarUsuario >> iniciarInterfaz [
 	botonPlus := BotonTipoSeleccion crear:'plus'.
 	
 	y := 50.
-	colCampos do:[:campo|  self addMorph:(campo position: 40@y).y := y+100].
+	colCampos do:[:campo|  self addMorph:(campo position: 40@y).y := y+40].
 	botonRegistrar := BotonTipo1 crear: 'Registrar'.
 	botonRegistrar position: 40@700.
 	self addMorph:botonPlus; addMorph:botonRegistrar.
@@ -53,8 +53,10 @@ RegistrarUsuario >> mostrarError:x [
 	"scope: class-variables  &  instance-variables"	
 	 |error|
 	error := colAviso at:x.
-	self addMorphCentered:error.
-	error position: 60@650.
+	ventana addMorphCentered:error.
+	error position:(ventana position) + (40@600).
+	
+	
 ]
 
 { #category : #'as yet unclassified' }
