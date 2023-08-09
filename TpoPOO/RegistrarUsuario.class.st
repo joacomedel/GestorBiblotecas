@@ -52,6 +52,7 @@ RegistrarUsuario >> mostrarError:x [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 	 |error|
+	colAviso do: [:avisoTemp | avisoTemp delete].
 	error := colAviso at:x.
 	ventana addMorphCentered:error.
 	error position:(ventana position) + (40@600).
@@ -62,7 +63,7 @@ RegistrarUsuario >> mostrarError:x [
 { #category : #'as yet unclassified' }
 RegistrarUsuario >> registrarUsuario [
 		|noPuedeRegistrar |
-		colAviso do: [:aviso | aviso delete].
+		"colAviso do: [:aviso | aviso delete]."
 		noPuedeRegistrar  := colCampos anySatisfy:[:campo | campo text isEmpty].
 		noPuedeRegistrar ifFalse:[
 			|pudoRegistrar|

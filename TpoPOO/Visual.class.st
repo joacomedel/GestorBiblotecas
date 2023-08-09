@@ -35,6 +35,16 @@ Visual >> buscarUsuario:dni contraseña:contraseña [
 ]
 
 { #category : #'as yet unclassified' }
+Visual >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  autores:autoresIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libro|
+	libro := controlador crearLibro:nombreIn  editorial: editorialIn anioEdicion: anioEdicion autores: autoresIn.
+	^libro.
+]
+
+{ #category : #'as yet unclassified' }
 Visual >> incializar:controladorIn [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -43,6 +53,14 @@ Visual >> incializar:controladorIn [.
 	ventana := Ventana crear:self.
 	ventana openInWorld.
 	
+]
+
+{ #category : #'as yet unclassified' }
+Visual >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ controlador nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros.
 ]
 
 { #category : #'as yet unclassified' }

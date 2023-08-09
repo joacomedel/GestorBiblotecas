@@ -42,6 +42,16 @@ Ventana >> cambiarInterfaz:nombre [.
 ]
 
 { #category : #'as yet unclassified' }
+Ventana >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  autores:autoresIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libro|
+	libro := visual crearLibro:nombreIn  editorial: editorialIn anioEdicion: anioEdicion autores: autoresIn.
+	^libro.
+]
+
+{ #category : #'as yet unclassified' }
 Ventana >> iniciar:visualIn [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -75,6 +85,13 @@ Ventana >> maximize [
 	"scope: class-variables  &  instance-variables"	
 			
 	^nil
+]
+
+{ #category : #'as yet unclassified' }
+Ventana >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros [	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	"crea bibloteca"		
+	^ visual nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros.
 ]
 
 { #category : #'as yet unclassified' }

@@ -37,12 +37,30 @@ Controlador >> buscarUsuario:dni contraseña:contraseña [
 ]
 
 { #category : #'as yet unclassified' }
+Controlador >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  autores:autoresIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libro|
+	libro := modelo crearLibro:nombreIn  editorial: editorialIn anioEdicion: anioEdicion autores: autoresIn.
+	^libro.
+]
+
+{ #category : #'as yet unclassified' }
 Controlador >> incializarVisual:visualIn modelo:modeloIn [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
 	visual := visualIn.
 	modelo := modeloIn.
+]
+
+{ #category : #'as yet unclassified' }
+Controlador >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ modelo nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros.
 ]
 
 { #category : #'as yet unclassified' }

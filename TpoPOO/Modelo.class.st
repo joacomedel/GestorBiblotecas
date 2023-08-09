@@ -18,6 +18,8 @@ Modelo class >> newModelo:controladorIn [
 	| modelo |
 	modelo := self new.
 	modelo incializar:controladorIn.
+	"Inicializo variables de clase del modelo"
+	Biblioteca iniciarVariablesDeClase.
 	^modelo.
 ]
 
@@ -54,6 +56,16 @@ Modelo >> buscarUsuario:dni contraseña:contraseña [
 ]
 
 { #category : #'as yet unclassified' }
+Modelo >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  autores:autoresIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libro|
+	libro := Libro crear: nombreIn  editorial:editorialIn  anio: anioEdicion   colAutores: autoresIn. 
+	^libro.
+]
+
+{ #category : #'as yet unclassified' }
 Modelo >> incializar:controladorIn [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -62,6 +74,14 @@ Modelo >> incializar:controladorIn [
 	colAutores := OrderedCollection new.
 	colBiblotecas := OrderedCollection new.
 	colUsuarios := OrderedCollection new.
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ Biblioteca nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros.
 ]
 
 { #category : #'as yet unclassified' }

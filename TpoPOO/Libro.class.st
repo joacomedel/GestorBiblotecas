@@ -4,21 +4,22 @@ Class {
 	#instVars : [
 		'titulo',
 		'editorial',
-		'anioAutores',
+		'anioEdicion',
 		'autores'
 	],
 	#category : #'TpoPOO-Modelo'
 }
 
 { #category : #'as yet unclassified' }
-Libro class >> nuevoTitulo: unTitulo editorial: unaEditorial anio: unAnio [
-    ^ self new inicializarTitulo: unTitulo editorial: unaEditorial anio: unAnio
+Libro class >> crear: unTitulo editorial: unaEditorial anio: unAnio colAutores:colAutores [.
+    ^ self new inicializarTitulo: unTitulo editorial: unaEditorial anio: unAnio colAutores:colAutores.
 ]
 
 { #category : #'as yet unclassified' }
-Libro >> inicializarTitulo: unTitulo editorial: unaEditorial anio: unAnio [
+Libro >> inicializarTitulo: unTitulo editorial: unaEditorial anio: unAnio colAutores:colAutores [.
     titulo := unTitulo.
     editorial := unaEditorial.
-    anioAutores := unAnio.
+    anioEdicion := unAnio.
     autores := OrderedCollection new.
+	colAutores do: [:nombreAutor |autores add: (Autor crear: nombreAutor)]
 ]
