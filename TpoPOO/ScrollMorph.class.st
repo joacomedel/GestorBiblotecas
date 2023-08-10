@@ -78,9 +78,11 @@ ScrollMorph >> iniciar:xIn y:yIn cabecera:cabeceraIn [
 ]
 
 { #category : #'as yet unclassified' }
-ScrollMorph >> limpiar [.
+ScrollMorph >> resetear [ 
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	colTextMorph do: [:textMorph | textMorph delete. ]
+	colTextMorph do: [:textMorph | textMorph delete. ].
+	colTextMorph := OrderedCollection new.
+	ultimoY := 40.
 ]

@@ -66,6 +66,17 @@ Modelo >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  aut
 ]
 
 { #category : #'as yet unclassified' }
+Modelo >> devolverBiblotecasInfo [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			|colBiblInfos|
+	colBiblInfos := OrderedCollection new.
+	colBiblotecas do: [:bibl | colBiblInfos add: (bibl devolverNombreId)].
+	^colBiblInfos 
+	
+]
+
+{ #category : #'as yet unclassified' }
 Modelo >> incializar:controladorIn [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -74,14 +85,16 @@ Modelo >> incializar:controladorIn [
 	colAutores := OrderedCollection new.
 	colBiblotecas := OrderedCollection new.
 	colUsuarios := OrderedCollection new.
+	
 ]
 
 { #category : #'as yet unclassified' }
 Modelo >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-			
-	^ Biblioteca nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros.
+			|bibl|
+	bibl :=  (Biblioteca nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros).
+	colBiblotecas add: bibl.
 ]
 
 { #category : #'as yet unclassified' }

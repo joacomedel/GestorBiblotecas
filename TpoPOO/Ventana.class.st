@@ -52,6 +52,14 @@ Ventana >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  au
 ]
 
 { #category : #'as yet unclassified' }
+Ventana >> devolverBiblotecasInfo [ 
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ visual devolverBiblotecasInfo.
+]
+
+{ #category : #'as yet unclassified' }
 Ventana >> iniciar:visualIn [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	

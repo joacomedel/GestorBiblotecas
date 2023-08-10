@@ -49,6 +49,14 @@ Biblioteca >> agregarPrestamo: unPrestamo [
 ]
 
 { #category : #'as yet unclassified' }
+Biblioteca >> devolverNombreId [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ (nombre , (identificador asString))
+]
+
+{ #category : #'as yet unclassified' }
 Biblioteca >> librosEnDeuda [
 	prestamos select: [:prestamo | prestamo fechaEntrega isNil]
 ]

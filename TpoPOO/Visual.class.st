@@ -45,6 +45,14 @@ Visual >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  aut
 ]
 
 { #category : #'as yet unclassified' }
+Visual >> devolverBiblotecasInfo [ 
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ controlador devolverBiblotecasInfo.
+]
+
+{ #category : #'as yet unclassified' }
 Visual >> incializar:controladorIn [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
