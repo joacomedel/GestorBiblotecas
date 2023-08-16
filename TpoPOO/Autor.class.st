@@ -19,6 +19,14 @@ Autor class >> crear:autorNombre [
 ]
 
 { #category : #'as yet unclassified' }
+Autor >> getNombre [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^nombreAutor clone.
+]
+
+{ #category : #'as yet unclassified' }
 Autor >> iniciar:autorNombre [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	

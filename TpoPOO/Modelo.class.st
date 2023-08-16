@@ -66,6 +66,18 @@ Modelo >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  aut
 ]
 
 { #category : #'as yet unclassified' }
+Modelo >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  autores:autoresIn tipo:tipo [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libro|
+	tipo = 'libro' ifTrue: [ libro := Libro crear: nombreIn  editorial:editorialIn  anio: anioEdicion   colAutores: autoresIn. ].
+	tipo = 'audio' ifTrue: [ libro := AudioLibro  crear: nombreIn  editorial:editorialIn  anio: anioEdicion   colAutores: autoresIn. ].
+	tipo = 'elec' ifTrue: [ libro := LibroElectronico  crear: nombreIn  editorial:editorialIn  anio: anioEdicion   colAutores: autoresIn. ].
+	^libro.
+]
+
+{ #category : #'as yet unclassified' }
 Modelo >> devolverBiblotecasInfo [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -85,6 +97,16 @@ Modelo >> incializar:controladorIn [
 	colAutores := OrderedCollection new.
 	colBiblotecas := OrderedCollection new.
 	colUsuarios := OrderedCollection new.
+	
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> infoBibloteca:id [
+			
+	| bibloteca colInfoDevuelta|
+	colBiblotecas  do: [:bibl | |bool| bool :=  (bibl verificarId:id) . bool ifTrue:[bibloteca := bibl]].
+	(bibloteca isNil) ifFalse:[colInfoDevuelta := (bibloteca getColInfo)].
+	^colInfoDevuelta.
 	
 ]
 

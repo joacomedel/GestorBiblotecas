@@ -38,7 +38,7 @@ ScrollMorph >> agregarTexto:texto [
 	| label |
     label := texto asStringMorph.
     label position: 5@ultimoY.
-    ultimoY := ultimoY + 40.
+    ultimoY := ultimoY + 15.
 	 colTextMorph add: label.
     self scroller addMorph: label behind: fondoCabecera.
 ]

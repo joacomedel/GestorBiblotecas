@@ -52,11 +52,26 @@ Ventana >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  au
 ]
 
 { #category : #'as yet unclassified' }
+Ventana >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  autores:autoresIn tipo:tipo [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libro|
+	libro := visual crearLibro:nombreIn  editorial: editorialIn anioEdicion: anioEdicion autores: autoresIn tipo:tipo.
+	^libro.
+]
+
+{ #category : #'as yet unclassified' }
 Ventana >> devolverBiblotecasInfo [ 
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
 	^ visual devolverBiblotecasInfo.
+]
+
+{ #category : #'as yet unclassified' }
+Ventana >> infoBibloteca:id [
+	^(visual infoBibloteca:id).
 ]
 
 { #category : #'as yet unclassified' }

@@ -47,6 +47,16 @@ Controlador >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion
 ]
 
 { #category : #'as yet unclassified' }
+Controlador >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  autores:autoresIn tipo:tipo [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libro|
+	libro := modelo crearLibro:nombreIn  editorial: editorialIn anioEdicion: anioEdicion autores: autoresIn tipo:tipo.
+	^libro.
+]
+
+{ #category : #'as yet unclassified' }
 Controlador >> devolverBiblotecasInfo [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -60,6 +70,12 @@ Controlador >> incializarVisual:visualIn modelo:modeloIn [.
 			
 	visual := visualIn.
 	modelo := modeloIn.
+]
+
+{ #category : #'as yet unclassified' }
+Controlador >> infoBibloteca:id [
+
+	^(modelo infoBibloteca:id).
 ]
 
 { #category : #'as yet unclassified' }

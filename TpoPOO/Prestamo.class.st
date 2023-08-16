@@ -2,9 +2,8 @@ Class {
 	#name : #Prestamo,
 	#superclass : #Object,
 	#instVars : [
-		'biblioteca',
-		'usuario',
 		'fechaPrestamo',
+		'usuario',
 		'fechaEntrega',
 		'libros',
 		'fechaDevolucion'
@@ -13,19 +12,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Prestamo class >> nuevoBiblioteca: unaBiblioteca usuario: unUsuario fechaPrestamo: unaFechaPrestamo [
-^ self new inicializarBiblioteca: unaBiblioteca usuario: unUsuario fechaPrestamo: unaFechaPrestamo
-]
-
-{ #category : #accessing }
-Prestamo >> agregarLibro: unLibro [
-	libros add: unLibro
-]
-
-{ #category : #accessing }
-Prestamo >> biblioteca: unaBiblioteca [
-	biblioteca := unaBiblioteca
-
+Prestamo class >> crearPrestamo:colLibros usuario:usuarioIn [
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"	
+			
+	^self new iniciarPrestamo:colLibros usuario: usuarioIn. 
 ]
 
 { #category : #accessing }
@@ -39,11 +30,22 @@ Prestamo >> fechaPrestamo: unaFecha [
 ]
 
 { #category : #'as yet unclassified' }
-Prestamo >> inicializarBiblioteca: unaBiblioteca usuario: unUsuario fechaPrestamo: unaFechaPrestamo [
-biblioteca := unaBiblioteca.
-usuario := unUsuario.
-fechaPrestamo := unaFechaPrestamo.
-fechaDevolucion := nil.
+Prestamo >> getInfoPrestamo [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+		|nombresLibro|
+		nombresLibro := ''.
+		libros do:[:libro |nombresLibro := nombresLibro , (libro getNombre) , ' '].
+	^ (usuario getDni) asString , ' ' , nombresLibro. 
+	
+]
+
+{ #category : #'as yet unclassified' }
+Prestamo >> iniciarPrestamo:colLibros usuario:usuarioIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	
 ]
 
 { #category : #accessing }

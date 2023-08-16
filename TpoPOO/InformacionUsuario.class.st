@@ -5,7 +5,9 @@ Class {
 		'colCampos',
 		'colAviso',
 		'tablaDatos',
-		'colFilas'
+		'colFilas',
+		'botonModalidad',
+		'botonPrestamo'
 	],
 	#category : #'TpoPOO-Visual'
 }
@@ -24,8 +26,10 @@ InformacionUsuario >> buscarUsuario [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 	|noPuedeBuscar colDatos|
+	botonModalidad = nil ifFalse:[botonModalidad delete].
+	botonPrestamo = nil ifFalse:[botonPrestamo delete].
 	tablaDatos = nil ifFalse:[tablaDatos delete].
-	noPuedeBuscar := colCampos anySatisfy:[:campo | (campo text) isEmpty].
+	noPuedeBuscar := ((colCampos at:1)text isEmpty) | ((colCampos at:2)text isEmpty).
 	noPuedeBuscar ifTrue:[self mostrarAviso:1] ifFalse:[colDatos := ventana buscarUsuario:((colCampos at:1) getTexto)contraseña:((colCampos at:2) getTexto)]; ifFalse:[
 	colDatos isEmpty ifTrue:[self mostrarAviso:2] ifFalse:[self usuarioEncontrado:colDatos ]
 		]
@@ -41,21 +45,34 @@ InformacionUsuario >> iniciarInterfaz [
 	|x botonBuscar|
 	"Inicializamos variables basicas"
 	nombre := 'Informacion Usuario'.
+	
 	"Creamos una collecion de campos a rellenar , agregamos campos con texto fantasma y los posicionamos en el morph"
 	x :=20.
 	colCampos := OrderedCollection new.
 	colCampos add:(CampoDeTexto crear:'DNI Usuario').
 	colCampos add:(CampoDeTexto crear:'Contraseña').
-	colCampos do:[:campo| self addMorph:campo . campo position:x@100.x:=x+250].
+	colCampos add:(CampoDeTexto crear:'Id bibloteca').
+	colCampos add:(CampoDeTexto crear:'Nombre libro').	
+	self addMorph: (colCampos at:1).
+	self addMorph: (colCampos at:2).
+	self addMorph: (colCampos at:3).
+	self addMorph: (colCampos at:4).
+	(colCampos at:1) position: 10@20.
+	(colCampos at:2) position: 230@20.
+	(colCampos at:3) position: 10@60.
+	(colCampos at:4) position: 230@60.
+	
 	"Inicializamos el boton de accion"
 	botonBuscar := BotonTipo1 crear: 'Buscar'.
 	self addMorph:botonBuscar.
-	botonBuscar position: 40@700.
+	botonBuscar position: 40@720.
 	botonBuscar mouseAction:[self buscarUsuario].
+	
 	"Inicializamos la coleccion de avisos"
 	colAviso := OrderedCollection new.
 	colAviso add: (MorphAviso crear:'Faltan campos por rellenar').
 	colAviso add: (MorphAviso crear:'Usuario no encontrado , cambiar dni o contraseña').
+	
 	
 	colFilas := OrderedCollection new.
 	colFilas add:'nombre' ;add:'apellido';add:'dni';add:'plus'.
@@ -71,7 +88,7 @@ InformacionUsuario >> mostrarAviso:x [
 	|error|
 	error := colAviso at:x.
 	ventana addMorphCentered:error.
-	error position:(ventana position) + (40@600).
+	error position:(ventana position) + (40@580).
 ]
 
 { #category : #'as yet unclassified' }
@@ -79,12 +96,17 @@ InformacionUsuario >> usuarioEncontrado:colDatos [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	| boton |
-	tablaDatos := InfoMorph crear: colDatos filas:colFilas. self addMorphCentered:tablaDatos . tablaDatos position:(ventana position) + (100@300).
-	boton := BotonTipo1 crear:'Cambiar modalidad plus'.
-	boton mouseAction: [self alternarModalidad:((colCampos at:1) getTexto) contraseña:((colCampos at:2) getTexto)].
-	boton position:(ventana position) + (40@700).
-	self addMorph: boton.
+
+	tablaDatos := InfoMorph crear: colDatos filas:colFilas. self addMorphCentered:tablaDatos . tablaDatos position:(ventana position) + (20@150).
+	botonModalidad := BotonTipo1 crear:'Cambiar modalidad plus'x:160 y:40.
+	botonModalidad mouseAction: [self alternarModalidad:((colCampos at:1) getTexto) contraseña:((colCampos at:2) getTexto)].
+	botonModalidad position:(ventana position) + (40@670).
+	
+	botonPrestamo := BotonTipo1 crear:'Agregar Prestamo'x:230 y:40. 
+	self addMorph:botonPrestamo.
+	botonPrestamo position: (ventana position) + (210@670).
+	
+	self addMorph: botonModalidad.
 	
 	
 ]

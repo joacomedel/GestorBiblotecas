@@ -53,7 +53,23 @@ Biblioteca >> devolverNombreId [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	^ (nombre , (identificador asString))
+	^ (nombre , ' ',(identificador asString))
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> getColInfo [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|colRetornar colLibros colPrestamos|
+	colRetornar := OrderedCollection new.
+	colLibros := OrderedCollection new.
+	colPrestamos := OrderedCollection new.
+	
+	libros do:[:libr | colLibros add: (libr getInfo)]. "Sacamos la informacion de un libro y lo añadimos a una coleccion q vamos a retornar en la coleccionRetornar final "
+	prestamos do:[:prestamo | colPrestamos add: (prestamo getInfoPrestamo)]."Sacamos la informacion de un prestamo y lo añadimos a una coleccion q vamos a retornar en la coleccionRetornar final "
+	colRetornar add: (identificador clone);add: (direccion clone);add: (nombre clone) ;add: (telefonoRepresentante clone);add: (nombreRepresentate clone);add: (colLibros);add: (colPrestamos).
+	^colRetornar.
 ]
 
 { #category : #'as yet unclassified' }
@@ -72,6 +88,18 @@ Biblioteca >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono rep
 		telefonoRepresentante := unTelefono.
 		nombreRepresentate := unRepresentante.
 		libros := colLibros.
+		prestamos := OrderedCollection new.
 			
 	
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> verificarId:id [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	
+	Transcript show: id.
+	Transcript show: identificador.
+	Transcript show: id = identificador.
+	^(identificador = id).
 ]

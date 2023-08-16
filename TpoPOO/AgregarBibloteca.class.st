@@ -37,64 +37,27 @@ AgregarBibloteca >> agregarBibloteca [
 ]
 
 { #category : #'as yet unclassified' }
-AgregarBibloteca >> agregarBibloteca: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"	
-	|faltanCampos noHayLibros|
-	faltanCampos := colCamposBib anySatisfy:[:campo | (campo text) isEmpty].
-	noHayLibros := colLibros  isEmpty.
-	Transcript show: noHayLibros.
-	(faltanCampos | noHayLibros ) ifFalse:[ventana nombre: unNombre direccion: unaDireccion telefono: unTelefono representante:unRepresentante  libros: colLibros.
-		self mostrarAviso:4.
-		];
-	ifTrue:[
-		self mostrarAviso:2.
-		]
-	
-
-]
-
-{ #category : #'as yet unclassified' }
 AgregarBibloteca >> agregarLibros [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-	|colNombreAutores subStrings noPuedeAgregar nombreIn autoresIn editorialIn anioIn|
+	|colNombreAutores subStrings faltanCampos tipoMalIngresado nombreIn autoresIn editorialIn anioIn tipo|
 	nombreIn := (colCamposLib at:1) getTexto.
 	autoresIn := (colCamposLib at:4) getTexto.
 	editorialIn := (colCamposLib at:2) getTexto.
 	anioIn := (colCamposLib at:3) getTexto. 
-	noPuedeAgregar  := colCamposLib  anySatisfy:[:campo | campo text isEmpty].
-	noPuedeAgregar ifFalse: [ scrollLibros agregarTexto: (nombreIn ,'||  ', autoresIn).
+	tipo := (colCamposLib at:5) getTexto. 
+	faltanCampos  := colCamposLib  anySatisfy:[:campo | campo text isEmpty].
+	tipoMalIngresado := ((tipo ~= 'audio' and: tipo ~= 'libro') and: tipo ~= 'elec').
+	Transcript show: tipoMalIngresado.
+	(faltanCampos or:tipoMalIngresado) ifFalse: [ scrollLibros agregarTexto: (nombreIn ,'||  ', autoresIn).
 	colNombreAutores := OrderedCollection new.
 	subStrings := ((autoresIn asString) substrings: ', ').
 	subStrings do: [:subString | colNombreAutores add: subString.].
-	colLibros add: (ventana crearLibro:nombreIn editorial:editorialIn anioEdicion:anioIn  autores:colNombreAutores). 
+	"colLibros add: (ventana crearLibro:nombreIn editorial:editorialIn anioEdicion:anioIn  autores:colNombreAutores)."
+	colLibros add: (ventana crearLibro:nombreIn editorial:editorialIn anioEdicion:anioIn  autores:colNombreAutores tipo:tipo).
 	self mostrarAviso:3.
 	] 
-    ifTrue: [ self mostrarAviso:1.
-	]
-	
-	
-	
-	
-	
-	
-]
-
-{ #category : #'as yet unclassified' }
-AgregarBibloteca >> agregarLibros:nombreIn autores:autoresIn editorial:editorialIn anioEdicion:anioIn [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"	
-	|colNombreAutores subStrings noPuedeAgregar|
-	noPuedeAgregar  := colCamposLib  anySatisfy:[:campo | campo text isEmpty].
-	noPuedeAgregar ifFalse: [ scrollLibros agregarTexto: (nombreIn ,'||  ', autoresIn).
-	colNombreAutores := OrderedCollection new.
-	subStrings := ((autoresIn asString) substrings: ', ').
-	subStrings do: [:subString | colNombreAutores add: subString.].
-	colLibros add: (ventana crearLibro:nombreIn editorial:editorialIn anioEdicion:anioIn  autores:colNombreAutores). 
-	self mostrarAviso:3.
-	] 
-    ifTrue: [ self mostrarAviso:1.
+    ifTrue: [ faltanCampos ifTrue:[self mostrarAviso:1] ; ifFalse:[self mostrarAviso:6].
 	]
 	
 	
@@ -118,13 +81,14 @@ AgregarBibloteca >> iniciarInterfaz [
 	colCamposBib add: (CampoDeTexto crear:'direccion').
 	colCamposBib add: (CampoDeTexto crear:'telefono de contacto').
 	colCamposBib add: (CampoDeTexto crear:'nombre del representante').
-	y := 50.
+	y := 10.
 	colCamposBib do:[:campo|  self addMorph:(campo position: 40@y).y := y+40].
 	colCamposLib add: (CampoDeTexto crear:'Nombre').
 	colCamposLib add: (CampoDeTexto crear:'Editorial').
 	colCamposLib add: (CampoDeTexto crear:'Año de edicion').
 	colCamposLib add: (CampoDeTexto crear:'Autores separados con ,').
-	y := y+40.
+	colCamposLib add: (CampoDeTexto crear:'Tipo , elec , audio, libro').
+	y := y+80.
 	colCamposLib do:[:campo|  self addMorph:(campo position: 40@y).y := y+40].
 	
 	botonAgregar := BotonTipo1 crear: 'Agregar Bibloteca '.
@@ -155,6 +119,7 @@ AgregarBibloteca >> iniciarInterfaz [
 	colAvisos add: (MorphAviso crear: 'Libro agregado con exito').
 	colAvisos add: (MorphAviso crear: 'Bibloteca agregada con exito').
 	colAvisos add: (MorphAviso crear: 'Reseteo').
+	colAvisos add: (MorphAviso crear: 'Campo tipo mal ingresado').
 	
 
 	self iniciarBotonMenu.

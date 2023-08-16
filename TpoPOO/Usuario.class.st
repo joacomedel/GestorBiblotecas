@@ -31,6 +31,14 @@ Usuario >> alternarModalidad [
 ]
 
 { #category : #'as yet unclassified' }
+Usuario >> getDni [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^dni clone.
+]
+
+{ #category : #'as yet unclassified' }
 Usuario >> inicializarNombre: unNombre apellido: unApellido dni: unDni contraseña: unaContrasena plus:unPlus [
    nombre := unNombre.
    apellido := unApellido.
