@@ -2,7 +2,6 @@ Class {
 	#name : #Interfaz,
 	#superclass : #Morph,
 	#instVars : [
-		'colBotones',
 		'nombre',
 		'ventana'
 	],
@@ -35,11 +34,10 @@ Interfaz >> iniciar [
 	"scope: class-variables  &  instance-variables"	
 	|boton fondo|
 	self extent: 480@854.
-	"fondo := (Form fromFileNamed: 'C:\Users\Joaco\Documents\Pharo\images\Pharo 9.0 - 64bit (stable)\pharo-local\iceberg\GestorBiblotecas\Resources\backgroundTipo1.png') asMorph  ."
-	"self addMorph: fondo."
+	"fondo := (Form fromFileNamed: 'C:\Users\Joaco\Documents\Pharo\images\Pharo 9.0 - 64bit (stable)\pharo-local\iceberg\GestorBiblotecas\Resources\backgroundTipo1.png') asMorph  .
+	self addMorph: fondo."
 	self borderWidth: 2.
 	self borderColor: Color white.
-	colBotones := OrderedCollection new.
 	self iniciarInterfaz.
 	boton := BotonTipo2 crear:'X'.
 	self addMorphFront:boton.

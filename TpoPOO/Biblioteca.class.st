@@ -49,6 +49,17 @@ Biblioteca >> agregarPrestamo: unPrestamo [
 ]
 
 { #category : #'as yet unclassified' }
+Biblioteca >> buscarLibro:nombreLibro [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|libroRetornar|
+	Transcript show:'entra bibloteca'.
+	libros do:[:libro | |bool| bool := (libro verificarNombre:nombreLibro). bool ifTrue:[libroRetornar := libro]].
+	^libroRetornar.
+]
+
+{ #category : #'as yet unclassified' }
 Biblioteca >> devolverNombreId [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -94,12 +105,18 @@ Biblioteca >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono rep
 ]
 
 { #category : #'as yet unclassified' }
+Biblioteca >> registrarPrestamo:prestamo [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	| temporary variable names |
+	prestamos add:prestamo.
+]
+
+{ #category : #'as yet unclassified' }
 Biblioteca >> verificarId:id [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 	
-	Transcript show: id.
-	Transcript show: identificador.
-	Transcript show: id = identificador.
 	^(identificador = id).
 ]

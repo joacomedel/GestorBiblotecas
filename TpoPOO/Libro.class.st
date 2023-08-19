@@ -20,10 +20,17 @@ Libro >> getInfo [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			|autoresString|
-	Transcript show:'Entro al libro'.
 	autoresString := ''.
 	autores do: [:autor | autoresString := autoresString , ' , ' , (autor getNombre)].
-	^ (anioEdicion) asString , editorial asString, titulo asString, autoresString.
+	^  'titulo:' , titulo asString ,' año:' , (anioEdicion) asString ,' editorial:' , editorial asString,' autores' , autoresString.
+]
+
+{ #category : #'as yet unclassified' }
+Libro >> getNombre [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^titulo clone.
 ]
 
 { #category : #'as yet unclassified' }
@@ -50,4 +57,14 @@ Libro >> inicializarTitulo: unTitulo editorial: unaEditorial anio: unAnio colAut
     anioEdicion := unAnio.
     autores := OrderedCollection new.
 	colAutores do: [:nombreAutor |autores add: (Autor crear: nombreAutor)]
+]
+
+{ #category : #'as yet unclassified' }
+Libro >> verificarNombre:libroNombre [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	Transcript show: libroNombre.
+	Transcript show: ' ;entro libro; '.
+	Transcript show: titulo.
+	^ libroNombre = titulo.
 ]

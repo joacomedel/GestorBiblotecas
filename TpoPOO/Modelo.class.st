@@ -44,6 +44,20 @@ Modelo >> buscarColUsuario:dni contraseña:contraseña [
 ]
 
 { #category : #'as yet unclassified' }
+Modelo >> buscarLibro:nombreLibro biblotecaId:id [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	| bibloteca libroARetornar|
+	colBiblotecas  do: [:bibl | |bool| bool :=  (bibl verificarId:id) . bool ifTrue:[bibloteca := bibl]].
+	Transcript show: id.
+	(bibloteca isNil) ifFalse:[libroARetornar := (bibloteca buscarLibro: nombreLibro)].
+	Transcript show: libroARetornar.
+	^libroARetornar.
+	
+]
+
+{ #category : #'as yet unclassified' }
 Modelo >> buscarUsuario:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -117,6 +131,39 @@ Modelo >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono represe
 			|bibl|
 	bibl :=  (Biblioteca nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros).
 	colBiblotecas add: bibl.
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			|retornar bibloteca usuario cantLibros indxLibros librosTipoAudio|
+	librosTipoAudio := OrderedCollection new.
+	colBiblotecas  do: [:bibl | |bool| bool :=  (bibl verificarId:idBibloteca) . bool ifTrue:[bibloteca := bibl]].
+	colUsuarios  do:[:us| |bool| bool := (us verificarDni:dniUsuario).bool ifTrue:[usuario := us]].
+	indxLibros := 1.
+	cantLibros := colLibros size.
+	indxLibros to: cantLibros do:[:i|
+		|libro|
+		libro := colLibros at:i.
+		libro getTipo = 'audio' ifTrue:[
+			librosTipoAudio add: libro.
+			colLibros removeAt:i.
+			].
+		].
+	((librosTipoAudio isEmpty) not and: ((usuario esPlus) not)) ifTrue:[
+		"El usuario no es plus y quiere pedir prestamo de audiolibro" retornar := -2.
+		];
+		ifFalse:[
+			|prestamo|
+			prestamo := Prestamo crearPrestamo:colLibros usuario: usuario.
+			bibloteca registrarPrestamo: prestamo.
+			((librosTipoAudio isEmpty) not)  ifTrue:[
+				|prestamoAudio|
+				prestamoAudio := Prestamo crearPrestamo:librosTipoAudio  usuario:usuario. 
+				bibloteca registrarPrestamo:prestamoAudio.
+				]
+		]
 ]
 
 { #category : #'as yet unclassified' }

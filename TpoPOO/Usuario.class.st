@@ -31,6 +31,15 @@ Usuario >> alternarModalidad [
 ]
 
 { #category : #'as yet unclassified' }
+Usuario >> esPlus [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^plus clone
+	
+]
+
+{ #category : #'as yet unclassified' }
 Usuario >> getDni [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	

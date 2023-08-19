@@ -1,6 +1,9 @@
 Class {
 	#name : #Menu,
 	#superclass : #Interfaz,
+	#instVars : [
+		'colBotones'
+	],
 	#category : #'TpoPOO-Visual'
 }
 
@@ -10,6 +13,7 @@ Menu >> iniciarInterfaz [
 	"scope: class-variables  &  instance-variables"
 	|y|
 	nombre := 'Menu'.
+	colBotones := OrderedCollection new.
 	colBotones add: (BotonTipo1 crear: 'Agregar Bibloteca').
 	colBotones add: (BotonTipo1 crear: 'Registrar Usuario').
 	colBotones add: (BotonTipo1 crear: 'Solicitar Prestamo').

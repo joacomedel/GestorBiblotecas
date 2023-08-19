@@ -28,7 +28,7 @@ CampoDeTexto >> getNombre [.
 CampoDeTexto >> getTexto [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-	^ self  text clone
+	^ self   text clone asString 
 ]
 
 { #category : #'as yet unclassified' }

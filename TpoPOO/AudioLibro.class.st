@@ -10,8 +10,7 @@ AudioLibro >> getInfo [
 	"scope: class-variables  &  instance-variables"	
 	|info|
 	info := super getInfo.
-	Transcript show:'          muestra        '.
-	^ info + ' audioLibro'
+	^ (info , ' tipo:audioLibro')
 ]
 
 { #category : #'as yet unclassified' }

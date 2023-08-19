@@ -30,6 +30,14 @@ Controlador >> alternarModalidad:dni contraseña:contraseña [
 ]
 
 { #category : #'as yet unclassified' }
+Controlador >> buscarLibro:nombreLibro biblotecaId:id [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ modelo buscarLibro:nombreLibro biblotecaId:id.
+]
+
+{ #category : #'as yet unclassified' }
 Controlador >> buscarUsuario:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -84,6 +92,11 @@ Controlador >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono re
 	"scope: class-variables  &  instance-variables"	
 			
 	^ modelo nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros.
+]
+
+{ #category : #'as yet unclassified' }
+Controlador >> registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca [
+	^visual registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca.
 ]
 
 { #category : #'as yet unclassified' }

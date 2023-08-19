@@ -26,6 +26,13 @@ Ventana >> alternarModalidad:dni contraseña:contraseña [
 ]
 
 { #category : #'as yet unclassified' }
+Ventana >> buscarLibro:nombreLibro biblotecaId:id [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	^visual buscarLibro:nombreLibro biblotecaId:id.
+]
+
+{ #category : #'as yet unclassified' }
 Ventana >> buscarUsuario:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -125,6 +132,11 @@ Ventana >> ponerInterfaz:nombre [
 	interfaz := colInterfaces detect:[:i |i comprobarNombre: nombre] .
 	self addMorphCentered:interfaz.
 	
+]
+
+{ #category : #'as yet unclassified' }
+Ventana >> registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca [
+	^visual registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca.
 ]
 
 { #category : #'as yet unclassified' }

@@ -66,6 +66,8 @@ ScrollMorph >> iniciar:xIn y:yIn cabecera:cabeceraIn [
 	ultimoY := 40.
 	self extent: x@y.
 	self color: Color black.
+	self borderWidth: 1.
+	self borderColor: Color gray.
 	colTextMorph := OrderedCollection new.
 	cabecera := cabeceraIn asStringMorph.
 	fondoCabecera := Morph new.
