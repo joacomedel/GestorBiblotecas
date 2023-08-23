@@ -24,12 +24,22 @@ Modelo class >> newModelo:controladorIn [
 ]
 
 { #category : #'as yet unclassified' }
+Modelo >> agregarDependencias:colVisuales [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+		Biblioteca addDependent: (colVisuales at:1).
+		Usuario addDependent: (colVisuales at:2).
+	
+]
+
+{ #category : #'as yet unclassified' }
 Modelo >> alternarModalidad:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 	|usuario |
 	usuario := self buscarColUsuario: dni contraseña: contraseña.
 	usuario alternarModalidad.
+	Usuario changed.
 	
 ]
 
@@ -50,9 +60,7 @@ Modelo >> buscarLibro:nombreLibro biblotecaId:id [
 			
 	| bibloteca libroARetornar|
 	colBiblotecas  do: [:bibl | |bool| bool :=  (bibl verificarId:id) . bool ifTrue:[bibloteca := bibl]].
-	Transcript show: id.
 	(bibloteca isNil) ifFalse:[libroARetornar := (bibloteca buscarLibro: nombreLibro)].
-	Transcript show: libroARetornar.
 	^libroARetornar.
 	
 ]
@@ -61,10 +69,12 @@ Modelo >> buscarLibro:nombreLibro biblotecaId:id [
 Modelo >> buscarUsuario:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-		|usuario colDatos |
+		|usuario colDatos datosPrestamo prestamos|
 	usuario := self buscarColUsuario: dni contraseña: contraseña.
 	colDatos := OrderedCollection new.
-	usuario = nil ifFalse:[colDatos := usuario recopilarDatos ].
+	usuario = nil ifFalse:[colDatos := usuario recopilarDatos . prestamos := self recolectarPrestamos:usuario.prestamos = nil ifFalse: [prestamos do:[:prestamo | datosPrestamo add: prestamo getInfoPrestamo].
+		colDatos add: datosPrestamo. "Agrego la coleccion con datos de sus prestamos "]].
+	Transcript show: 'SALE BUSCAR USUARIO'.
 	^colDatos.
 
 ]
@@ -131,39 +141,82 @@ Modelo >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono represe
 			|bibl|
 	bibl :=  (Biblioteca nombre: unNombre direccion: unaDireccion  telefono: unTelefono representante: unRepresentante libros:colLibros).
 	colBiblotecas add: bibl.
+	Biblioteca changed.
 ]
 
 { #category : #'as yet unclassified' }
-Modelo >> registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca [
+Modelo >> recolectarPrestamos: usuario [
+
 	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"	
-			|retornar bibloteca usuario cantLibros indxLibros librosTipoAudio|
+
+	"scope: class-variables  &  instance-variables"
+
+	| prestamosRetornar |
+	colBiblotecas do: [ :biblioteca | 
+		| prestamosDeBiblitoteca |
+		prestamosDeBiblitoteca := biblioteca devolverPrestamosDeUsuario:
+			                          usuario.
+		prestamosDeBiblitoteca isNil ifFalse: [ 
+			prestamosDeBiblitoteca do: [ :prestamo | 
+				prestamosRetornar add: prestamo ] ] ].
+	^ prestamosRetornar
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> registrarPrestamo: dniUsuario colLibros: colLibros idBibloteca: idBibloteca [
+
+	"comment stating purpose of instance-side method"
+
+	"scope: class-variables  &  instance-variables"
+
+	| retornar bibloteca usuario cantLibros indxLibros librosTipoAudio |
+	Transcript show: 'Entro en registrar prestamo , modelo'.
 	librosTipoAudio := OrderedCollection new.
-	colBiblotecas  do: [:bibl | |bool| bool :=  (bibl verificarId:idBibloteca) . bool ifTrue:[bibloteca := bibl]].
-	colUsuarios  do:[:us| |bool| bool := (us verificarDni:dniUsuario).bool ifTrue:[usuario := us]].
+	colBiblotecas do: [ :bibl | "Busco la bibloteca"
+		| bool |
+		bool := bibl verificarId: idBibloteca.
+		bool ifTrue: [ bibloteca := bibl ] ].
+
+	colUsuarios do: [ :us | "busco el usuario"
+		| bool |
+		bool := us verificarDni: dniUsuario.
+		bool ifTrue: [ usuario := us ] ].
+
 	indxLibros := 1.
 	cantLibros := colLibros size.
-	indxLibros to: cantLibros do:[:i|
-		|libro|
-		libro := colLibros at:i.
-		libro getTipo = 'audio' ifTrue:[
+	indxLibros to: cantLibros do: [ :i | "Recolecto los libros tipo audio"
+		| libro |
+		libro := colLibros at: i.
+		libro getTipo = 'audio' ifTrue: [ 
 			librosTipoAudio add: libro.
-			colLibros removeAt:i.
-			].
-		].
-	((librosTipoAudio isEmpty) not and: ((usuario esPlus) not)) ifTrue:[
-		"El usuario no es plus y quiere pedir prestamo de audiolibro" retornar := -2.
-		];
-		ifFalse:[
-			|prestamo|
-			prestamo := Prestamo crearPrestamo:colLibros usuario: usuario.
-			bibloteca registrarPrestamo: prestamo.
-			((librosTipoAudio isEmpty) not)  ifTrue:[
-				|prestamoAudio|
-				prestamoAudio := Prestamo crearPrestamo:librosTipoAudio  usuario:usuario. 
-				bibloteca registrarPrestamo:prestamoAudio.
-				]
-		]
+			colLibros removeAt: i ] ].
+	(bibloteca isNil or: usuario isNil)
+		ifTrue: [ "Bibloteca o usuario no encontrado" retornar := -1 ];
+		ifFalse: ["Encontro usuario y bibloteca"
+			(bibloteca usuarioPrestamosMaximos: usuario) ifFalse: [ 
+					(((bibloteca usuarioTienePrestamo: usuario) and:
+							  colLibros isEmpty not) or:
+							 ((bibloteca usuarioTienePrestamoAudio: usuario) and:
+									  librosTipoAudio isEmpty not)) ifFalse: [ "Entra siempre q el usuario tenga espacio para su prestamo , si ya tiene un prestamo normal no puede pedir otro normal , pero si tiene uno normal y pide uno tipo audio puede "
+							(librosTipoAudio isEmpty not and: usuario esPlus not)
+								ifTrue: [ "El usuario no es plus y quiere pedir prestamo de audiolibro" 
+									retornar := -2 ];
+								ifFalse: [ "entra cuando es plus o cuando no quiere audiolibro"
+									| prestamo |
+									retornar := 1. "Funciono el metodo"
+									colLibros isEmpty ifFalse: [ 
+											prestamo := Prestamo
+												            crearPrestamo: colLibros
+												            usuario: usuario.
+											bibloteca registrarPrestamo: prestamo ].
+									librosTipoAudio isEmpty ifFalse: [ "Si el usuario pidio audiolibros hace otro prestamo"
+											| prestamoAudio |
+											prestamoAudio := Prestamo
+												                 crearPrestamo: librosTipoAudio
+												                 usuario: usuario.
+											bibloteca registrarPrestamo: prestamoAudio ] ] ] ].Transcript show: 'CHANGED'. Usuario changed.].
+
+	^ retornar
 ]
 
 { #category : #'as yet unclassified' }

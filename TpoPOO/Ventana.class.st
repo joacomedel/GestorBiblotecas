@@ -77,6 +77,14 @@ Ventana >> devolverBiblotecasInfo [
 ]
 
 { #category : #'as yet unclassified' }
+Ventana >> getInterfaz:ind [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^(colInterfaces at:ind)
+]
+
+{ #category : #'as yet unclassified' }
 Ventana >> infoBibloteca:id [
 	^(visual infoBibloteca:id).
 ]
@@ -99,14 +107,14 @@ Ventana >> iniciarInterfaces [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	colInterfaces add: (Menu crear:self). 
-	colInterfaces add: (AgregarBibloteca crear:self).
-	colInterfaces add: (CambiarModalidad  crear:self).
-	colInterfaces add: (ActualizarBibloteca crear:self).
-	colInterfaces add: (InformacionBibloteca  crear:self).
-	colInterfaces add: (InformacionUsuario  crear:self).
-	colInterfaces add: (RegistrarUsuario  crear:self).
-	colInterfaces add: (SolicitarPrestamo crear:self).
+	colInterfaces add: (Menu crear:self). "1"
+	colInterfaces add: (AgregarBibloteca crear:self)."2"
+	colInterfaces add: (CambiarModalidad  crear:self)."3"
+	colInterfaces add: (ActualizarBibloteca crear:self)."4"
+	colInterfaces add: (InformacionBibloteca  crear:self)."5"
+	colInterfaces add: (InformacionUsuario  crear:self)."6"
+	colInterfaces add: (RegistrarUsuario  crear:self)."7"
+	colInterfaces add: (SolicitarPrestamo crear:self)."8"
 ]
 
 { #category : #'window management' }

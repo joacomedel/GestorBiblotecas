@@ -20,6 +20,20 @@ Visual class >> newVisual:controladorIn [
 ]
 
 { #category : #'as yet unclassified' }
+Visual >> agregarDependencias [
+
+	|informacionBibloteca informacionUsuario colVisuales|
+	informacionBibloteca := ventana getInterfaz:5.
+	informacionUsuario := ventana getInterfaz:6.
+	colVisuales := OrderedCollection new.
+	colVisuales add: informacionBibloteca;add:informacionUsuario.
+	controlador agregarDependencias: colVisuales.
+	
+
+	
+]
+
+{ #category : #'as yet unclassified' }
 Visual >> alternarModalidad:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -74,6 +88,7 @@ Visual >> incializar:controladorIn [.
 			
 	controlador := controladorIn.
 	ventana := Ventana crear:self.
+	self agregarDependencias.
 	ventana openInWorld.
 	
 ]

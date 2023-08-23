@@ -38,7 +38,6 @@ Libro >> getTipo [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	| temporary variable names |
 	^'libro'
 ]
 
@@ -63,8 +62,5 @@ Libro >> inicializarTitulo: unTitulo editorial: unaEditorial anio: unAnio colAut
 Libro >> verificarNombre:libroNombre [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-	Transcript show: libroNombre.
-	Transcript show: ' ;entro libro; '.
-	Transcript show: titulo.
 	^ libroNombre = titulo.
 ]

@@ -22,7 +22,7 @@ InterfazTipo1 >> iniciarBotonMenu [
 	"scope: class-variables  &  instance-variables"	
 	|boton|
 	boton := (BotonTipo1 crear: 'Menu').
-	colBotones add: boton.
+	"colBotones add: boton."
 	boton position: 40@780.
 	self addMorph:boton.
 	boton mouseAction: [self cambiarInterfaz: boton getNombre].

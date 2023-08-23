@@ -5,7 +5,6 @@ Class {
 		'scrollBiblotecas',
 		'scrollPrestamos',
 		'infoBibloteca',
-		'botonActualizar',
 		'botonBuscarBibl',
 		'campoBibloteca',
 		'scrollLibros'
@@ -21,7 +20,6 @@ InformacionBibloteca >> actualizarBibloteca [
 	scrollBiblotecas resetear.
 	infoBiblotecas := ventana devolverBiblotecasInfo.
 	infoBiblotecas isNotNil ifTrue: [
-		Transcript show: 'Entro en iftrue'. 
 		infoBiblotecas do: [:infoBibl | scrollBiblotecas agregarTexto: infoBibl]. 
 		].
 	
@@ -62,11 +60,6 @@ InformacionBibloteca >> iniciarInterfaz [
 	self addMorph: botonBuscarBibl.
 	botonBuscarBibl mouseAction: [self mostrarBibloteca ].
 	
-	
-	botonActualizar := BotonTipo1 crear: 'Actualizar'.	
-	botonActualizar position:40@700.
-	self addMorph: botonActualizar.
-	botonActualizar mouseAction:[self actualizarBibloteca ].
 	self iniciarBotonMenu.
 ]
 
@@ -85,18 +78,15 @@ InformacionBibloteca >> mostrarBibloteca [
 		colDatosBib := (ventana infoBibloteca:((id asString) asInteger)).
 		
 		(colDatosBib isNil) ifTrue:[
-			Transcript show:'No existe la bibloteca con esa id '
 			];ifFalse:[
 			
 			
-			Transcript show: 'Intena agregar datos bibloteca '.
 			infoBibloteca agregarTexto: 'ID' , (colDatosBib at:1) asString.
 			infoBibloteca agregarTexto: 'nombre' , (colDatosBib at:2).
 			infoBibloteca agregarTexto: 'Dir' , (colDatosBib at:3).
 			infoBibloteca agregarTexto: 'nombreRepresentante' , (colDatosBib at:4).
 			infoBibloteca agregarTexto: 'telefonoRepresentante' , (colDatosBib at:5).
 			"Agrego scroll con los libros "
-			Transcript show: 'Intena agregar datos libros '.
 			colDatosLib := (colDatosBib at:6).
 			colDatosLib do: [:datosLib | scrollLibros agregarTexto: datosLib ].
 			
@@ -107,4 +97,12 @@ InformacionBibloteca >> mostrarBibloteca [
 		
 		]
 	
+]
+
+{ #category : #updating }
+InformacionBibloteca >> update:asd [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	
+	self actualizarBibloteca.
 ]

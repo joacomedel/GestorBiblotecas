@@ -15,10 +15,19 @@ Controlador class >> newControlador [
 			
 	|controlador visual modelo|
 	controlador := self new.
-	visual := Visual newVisual:controlador.
 	modelo := Modelo newModelo:controlador.
-	controlador incializarVisual:visual modelo:modelo.
+	controlador inicializarModelo:modelo.
+	visual := Visual newVisual:controlador.
+	controlador inicializarVisual:visual.
 	
+]
+
+{ #category : #'as yet unclassified' }
+Controlador >> agregarDependencias:colVisuales [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	modelo agregarDependencias:colVisuales.
 ]
 
 { #category : #'as yet unclassified' }
@@ -72,18 +81,25 @@ Controlador >> devolverBiblotecasInfo [
 ]
 
 { #category : #'as yet unclassified' }
-Controlador >> incializarVisual:visualIn modelo:modeloIn [.
+Controlador >> infoBibloteca:id [
+
+	^(modelo infoBibloteca:id).
+]
+
+{ #category : #'as yet unclassified' }
+Controlador >> inicializarModelo:modeloIn [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	visual := visualIn.
 	modelo := modeloIn.
 ]
 
 { #category : #'as yet unclassified' }
-Controlador >> infoBibloteca:id [
-
-	^(modelo infoBibloteca:id).
+Controlador >> inicializarVisual:visualIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	visual := visualIn.
 ]
 
 { #category : #'as yet unclassified' }
@@ -96,7 +112,7 @@ Controlador >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono re
 
 { #category : #'as yet unclassified' }
 Controlador >> registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca [
-	^visual registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca.
+	^modelo registrarPrestamo:dniUsuario colLibros: colLibros idBibloteca: idBibloteca.
 ]
 
 { #category : #'as yet unclassified' }

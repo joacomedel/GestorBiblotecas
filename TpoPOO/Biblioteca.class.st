@@ -54,7 +54,6 @@ Biblioteca >> buscarLibro:nombreLibro [
 	"scope: class-variables  &  instance-variables"	
 			
 	|libroRetornar|
-	Transcript show:'entra bibloteca'.
 	libros do:[:libro | |bool| bool := (libro verificarNombre:nombreLibro). bool ifTrue:[libroRetornar := libro]].
 	^libroRetornar.
 ]
@@ -65,6 +64,18 @@ Biblioteca >> devolverNombreId [
 	"scope: class-variables  &  instance-variables"	
 			
 	^ (nombre , ' ',(identificador asString))
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> devolverPrestamosDeUsuario:usuario [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|prestamosRetornar|
+	prestamosRetornar := OrderedCollection new.
+	Transcript show: ' ENTRA EN DEOLVERPRESTAMOSDEUSUARIO  '.
+	prestamos do: [:prestamo | |bool| bool := (prestamo verificarUsuario: usuario).bool ifTrue:[prestamosRetornar add: prestamo . Transcript show: ' ENCONTRO PRESTAMO COMO USUARIO ']].
+	^prestamosRetornar.
 ]
 
 { #category : #'as yet unclassified' }
@@ -108,9 +119,52 @@ Biblioteca >> nombre: unNombre direccion: unaDireccion  telefono: unTelefono rep
 Biblioteca >> registrarPrestamo:prestamo [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-			
-	| temporary variable names |
+	Transcript show:'Registro el prestamo'.
 	prestamos add:prestamo.
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> usuarioPrestamosMaximos: usuario [
+	| esPlus retornar |
+	retornar := false.
+	esPlus := usuario esPlus.
+	esPlus
+		ifFalse: [ 
+			prestamos do: [ :prestamo | 
+					| bool |
+					bool := prestamo verificarUsuario: usuario.
+					bool ifTrue: [ retornar := true ] ] ];
+		ifTrue: [ 
+			| tienePrestamoAudio tienePrestamo |
+			tienePrestamoAudio := self usuarioTienePrestamoAudio: usuario.
+			tienePrestamo := self usuarioTienePrestamo: usuario.
+			(tienePrestamoAudio and: tienePrestamo) ifTrue:[retornar = true.] ].
+	^ retornar
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> usuarioTienePrestamo:usuario [
+
+
+			|tienePrestamo|
+			tienePrestamo := false.
+			prestamos do: [ :prestamo | 
+					| esAudio esUsuario |
+					esAudio := prestamo verificarPrestamoAudio.
+					esUsuario := prestamo verificarUsuario: usuario.
+					(esAudio not and: esUsuario) ifTrue:[tienePrestamo := true] ].
+			^tienePrestamo.
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> usuarioTienePrestamoAudio:usuario [
+
+
+			|tienePrestamoAudio|
+			tienePrestamoAudio:= false.
+			
+			prestamos do: [:prestamo  | |esAudio esUsuario| esAudio := prestamo verificarPrestamoAudio. esUsuario := prestamo verificarUsuario: usuario. (esAudio and:esUsuario) ifTrue:[tienePrestamoAudio := true]].
+			^tienePrestamoAudio.
 ]
 
 { #category : #'as yet unclassified' }

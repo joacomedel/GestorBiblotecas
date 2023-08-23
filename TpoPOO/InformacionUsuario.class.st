@@ -7,7 +7,7 @@ Class {
 		'scrollLibros',
 		'colDatos',
 		'colLibros',
-		'tablaDatos',
+		'scrollUsuario',
 		'colFilas',
 		'botonModalidad',
 		'botonPrestamo',
@@ -16,6 +16,21 @@ Class {
 	],
 	#category : #'TpoPOO-Visual'
 }
+
+{ #category : #'as yet unclassified' }
+InformacionUsuario >> agregarDatosUsuario [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	|colPrestamos|	
+	scrollUsuario agregarTexto: 'Nombre:',(colDatos at:1).
+	scrollUsuario agregarTexto: 'Apellido:',(colDatos at:2).
+	scrollUsuario agregarTexto: 'DNI:',(colDatos at:3).
+	scrollUsuario agregarTexto: 'TIPO USUARIO:',(colDatos at:4).
+	scrollUsuario agregarTexto: 'Prestamos:'.
+	"Si tiene tamaño 5 entonces tiene una coleccion con prestamos"
+	(colDatos size >= 5) ifTrue: [colPrestamos := colDatos at:5.colPrestamos do:[:prestamoDatos | scrollUsuario agregarTexto:prestamoDatos].]
+	
+]
 
 { #category : #'as yet unclassified' }
 InformacionUsuario >> agregarLibro [
@@ -40,7 +55,6 @@ InformacionUsuario >> alternarModalidad:dni contraseña:contraseña [
 	"scope: class-variables  &  instance-variables"	
 			
 	ventana alternarModalidad:dni contraseña:contraseña.
-	tablaDatos alternarModalidad.
 ]
 
 { #category : #'as yet unclassified' }
@@ -52,10 +66,10 @@ InformacionUsuario >> buscarUsuario [
 	botonPrestamo = nil ifFalse:[botonPrestamo delete].
 	botonReiniciar  = nil ifFalse:[botonPrestamo delete].
 	botonLibro = nil ifFalse:[botonPrestamo delete].
-	tablaDatos = nil ifFalse:[tablaDatos delete].
+	scrollUsuario resetear.
 	noPuedeBuscar := ((colCampos at:1)text isEmpty) | ((colCampos at:2)text isEmpty).
 	noPuedeBuscar ifTrue:[self mostrarAviso:1] ifFalse:[colDatos := ventana buscarUsuario:((colCampos at:1) getTexto)contraseña:((colCampos at:2) getTexto)]; ifFalse:[
-	colDatos isEmpty ifTrue:[self mostrarAviso:2] ifFalse:[self usuarioEncontrado:colDatos ]
+	colDatos isEmpty ifTrue:[self mostrarAviso:2] ifFalse:[self usuarioEncontrado ]
 		]
 	
 			
@@ -69,6 +83,7 @@ InformacionUsuario >> iniciarInterfaz [
 	|x botonBuscar|
 	"Inicializamos variables basicas"
 	nombre := 'Informacion Usuario'.
+	
 	
 	colLibros := OrderedCollection new.
 	
@@ -103,8 +118,9 @@ InformacionUsuario >> iniciarInterfaz [
 	self addMorph:scrollLibros.
 	scrollLibros position: 325@150.
 	
-	colFilas := OrderedCollection new.
-	colFilas add:'nombre' ;add:'apellido';add:'dni';add:'plus'.
+	scrollUsuario  := ScrollMorph crear:250 y:200  cabecera:'Datos Usuario'.
+	self addMorph:scrollUsuario.
+	scrollUsuario position: 20@150.
 	self iniciarBotonMenu.
 	
 ]
@@ -124,8 +140,12 @@ InformacionUsuario >> mostrarAviso:x [
 InformacionUsuario >> registrarPrestamo [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-			
-	ventana registrarPrestamo:(colDatos at:3)getTexto colLibros:colLibros  idBibloteca: ((colCampos at:3)getTexto) asInteger.
+		|i|	
+	i := ventana registrarPrestamo:(colDatos at:3) clone colLibros:colLibros  idBibloteca: ((colCampos at:3)getTexto) asInteger.
+	i=1 ifTrue:[ Transcript show: 'REGISTRAR PRESTAMO EXITO'].
+	i=(-1) ifTrue:[ Transcript show: 'USUARIO O BIBLIOTECA NO ENCONTRADO'].
+	i=(-2) ifTrue:[ Transcript show: 'USUARIO NO PLUS QUIERE AUDIOLIBRO'].
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -139,19 +159,28 @@ InformacionUsuario >> reiniciar [
 	colLibros := OrderedCollection new.
 ]
 
+{ #category : #updating }
+InformacionUsuario >> update:i [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	self buscarUsuario.
+]
+
 { #category : #'as yet unclassified' }
-InformacionUsuario >> usuarioEncontrado:colDatos [
+InformacionUsuario >> usuarioEncontrado [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
 
-	tablaDatos := InfoMorph crear: colDatos filas:colFilas. self addMorphCentered:tablaDatos . tablaDatos position:(ventana position) + (20@150).
+	self agregarDatosUsuario.
 	botonModalidad := BotonTipo1 crear:'Cambiar modalidad plus'x:160 y:40.
 	botonModalidad mouseAction: [self alternarModalidad:((colCampos at:1) getTexto) contraseña:((colCampos at:2) getTexto)].
 	botonModalidad position:(ventana position) + (40@670).
 	self addMorph: botonModalidad.
 	
 	botonPrestamo := BotonTipo1 crear:'Agregar Prestamo'x:230 y:40. 
+	botonPrestamo mouseAction: [self registrarPrestamo].
 	self addMorph:botonPrestamo.
 	botonPrestamo position: (ventana position) + (210@670).
 	

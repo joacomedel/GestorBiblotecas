@@ -16,8 +16,13 @@ BotonTipoSeleccion class >> crear:string [
 BotonTipoSeleccion >> estaSeleccionado [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-			
-	^ buttonMorph selected.
+		|retornar|
+	buttonMorph selected ifTrue:[
+		retornar := true.
+		];ifFalse:[
+		retornar := false.
+		].
+	^ retornar .
 ]
 
 { #category : #'as yet unclassified' }

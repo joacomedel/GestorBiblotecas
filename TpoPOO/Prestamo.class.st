@@ -44,11 +44,28 @@ Prestamo >> getInfoPrestamo [
 Prestamo >> iniciarPrestamo:colLibros usuario:usuarioIn [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-			
+		libros := colLibros.
+		usuario := usuarioIn.
 	
 ]
 
 { #category : #accessing }
 Prestamo >> usuario: unUsuario [
 	usuario := unUsuario
+]
+
+{ #category : #'as yet unclassified' }
+Prestamo >> verificarPrestamoAudio [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ (libros at:1)getTipo = 'audio'.
+]
+
+{ #category : #'as yet unclassified' }
+Prestamo >> verificarUsuario:usuarioIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^usuario = usuarioIn .
 ]
