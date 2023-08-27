@@ -7,7 +7,7 @@ Class {
 		'dni',
 		'contraseña',
 		'colBibliotecasInteres',
-		'plus'
+		'tipo'
 	],
 	#category : #'TpoPOO-Modelo'
 }
@@ -27,7 +27,19 @@ Usuario >> alternarModalidad [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	plus := plus not.
+	tipo esPlus ifTrue:[tipo := UsuarioNormal crear: self ];ifFalse:[tipo := UsuarioPlus crear: self ].
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> buscarBiblotecaInteres:idBibloteca [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+		|bibloteca|
+		colBibliotecasInteres do: [ :bibl | "Busco la bibloteca"
+		| bool |
+		bool := bibl verificarId: idBibloteca.
+		bool ifTrue: [ bibloteca := bibl ] ].		
+		^bibloteca.
 ]
 
 { #category : #'as yet unclassified' }
@@ -35,7 +47,7 @@ Usuario >> esPlus [.
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	^plus clone
+	^tipo esPlus
 	
 ]
 
@@ -53,7 +65,7 @@ Usuario >> inicializarNombre: unNombre apellido: unApellido dni: unDni contrase�
    apellido := unApellido.
    dni := unDni.
    contraseña := unaContrasena.
-	plus := unPlus.
+	unPlus ifTrue:[tipo := UsuarioPlus crear: self ];ifFalse:[tipo := UsuarioNormal crear: self ].
    	colBibliotecasInteres  := OrderedCollection new.
 ]
 
@@ -67,7 +79,7 @@ Usuario >> recopilarDatos [
 	colDatos add:nombre asString.
 	colDatos add:apellido asString.
 	colDatos add:dni asString.
-	plus ifTrue:[stringPlus := 'activado'] ifFalse:[stringPlus := 'desactivado'].
+	tipo esPlus ifTrue:[stringPlus := 'activado'] ifFalse:[stringPlus := 'desactivado'].
 	colDatos add: stringPlus.
 	Transcript show: 'Recopila datos'.
 	^colDatos.

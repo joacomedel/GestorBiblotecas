@@ -70,9 +70,10 @@ Modelo >> buscarUsuario:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 		|usuario colDatos datosPrestamo prestamos|
+		datosPrestamo := OrderedCollection new.
 	usuario := self buscarColUsuario: dni contraseña: contraseña.
 	colDatos := OrderedCollection new.
-	usuario = nil ifFalse:[colDatos := usuario recopilarDatos . prestamos := self recolectarPrestamos:usuario.prestamos = nil ifFalse: [prestamos do:[:prestamo | datosPrestamo add: prestamo getInfoPrestamo].
+	usuario = nil ifFalse:[colDatos := usuario recopilarDatos . prestamos := self recolectarPrestamos:usuario.prestamos isEmpty ifFalse: [prestamos do:[:prestamo | datosPrestamo add: prestamo getInfoPrestamo].
 		colDatos add: datosPrestamo. "Agrego la coleccion con datos de sus prestamos "]].
 	Transcript show: 'SALE BUSCAR USUARIO'.
 	^colDatos.
@@ -152,6 +153,7 @@ Modelo >> recolectarPrestamos: usuario [
 	"scope: class-variables  &  instance-variables"
 
 	| prestamosRetornar |
+	prestamosRetornar := OrderedCollection new.
 	colBiblotecas do: [ :biblioteca | 
 		| prestamosDeBiblitoteca |
 		prestamosDeBiblitoteca := biblioteca devolverPrestamosDeUsuario:
@@ -170,18 +172,15 @@ Modelo >> registrarPrestamo: dniUsuario colLibros: colLibros idBibloteca: idBibl
 	"scope: class-variables  &  instance-variables"
 
 	| retornar bibloteca usuario cantLibros indxLibros librosTipoAudio |
-	Transcript show: 'Entro en registrar prestamo , modelo'.
-	librosTipoAudio := OrderedCollection new.
-	colBiblotecas do: [ :bibl | "Busco la bibloteca"
-		| bool |
-		bool := bibl verificarId: idBibloteca.
-		bool ifTrue: [ bibloteca := bibl ] ].
+
 
 	colUsuarios do: [ :us | "busco el usuario"
 		| bool |
 		bool := us verificarDni: dniUsuario.
 		bool ifTrue: [ usuario := us ] ].
-
+	usuario isNotNil ifTrue: [ usuario registarPrestamo:colLibros  idBibloteca: idBibloteca.];ifFalse:[retornar := -1].
+	
+	
 	indxLibros := 1.
 	cantLibros := colLibros size.
 	indxLibros to: cantLibros do: [ :i | "Recolecto los libros tipo audio"

@@ -125,26 +125,18 @@ Biblioteca >> registrarPrestamo:prestamo [
 
 { #category : #'as yet unclassified' }
 Biblioteca >> usuarioPrestamosMaximos: usuario [
-	| esPlus retornar |
+	| retornar tienePrestamoAudio tienePrestamo|
+	"MetodoLlamadoPorUsuarioPlus"
 	retornar := false.
-	esPlus := usuario esPlus.
-	esPlus
-		ifFalse: [ 
-			prestamos do: [ :prestamo | 
-					| bool |
-					bool := prestamo verificarUsuario: usuario.
-					bool ifTrue: [ retornar := true ] ] ];
-		ifTrue: [ 
-			| tienePrestamoAudio tienePrestamo |
-			tienePrestamoAudio := self usuarioTienePrestamoAudio: usuario.
-			tienePrestamo := self usuarioTienePrestamo: usuario.
-			(tienePrestamoAudio and: tienePrestamo) ifTrue:[retornar = true.] ].
+	tienePrestamoAudio := self usuarioTienePrestamoAudio: usuario.
+	tienePrestamo := self usuarioTienePrestamo: usuario.
+	(tienePrestamoAudio and: tienePrestamo) ifTrue:[retornar = true.].
 	^ retornar
 ]
 
 { #category : #'as yet unclassified' }
 Biblioteca >> usuarioTienePrestamo:usuario [
-
+"Metodo q devuelve true si tiene prestamo , ignorando los prestamos tipo audio"
 
 			|tienePrestamo|
 			tienePrestamo := false.

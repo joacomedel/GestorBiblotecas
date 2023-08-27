@@ -36,7 +36,7 @@ Prestamo >> getInfoPrestamo [
 		|nombresLibro|
 		nombresLibro := ''.
 		libros do:[:libro |nombresLibro := nombresLibro , (libro getNombre) , ' '].
-	^ (usuario getDni) asString , ' ' , nombresLibro. 
+	^ 'dni: ', (usuario getDni) asString , ' ' , 'libros: ' ,nombresLibro. 
 	
 ]
 

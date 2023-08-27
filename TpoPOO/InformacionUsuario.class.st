@@ -36,12 +36,13 @@ InformacionUsuario >> agregarDatosUsuario [
 InformacionUsuario >> agregarLibro [
 "comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-		|libro faltanCampos|
+		|libro faltanCampos libroRepetido|
 		faltanCampos := colCampos anySatisfy:[:campo | (campo text) isEmpty].
-		faltanCampos ifFalse:[
+		libroRepetido := false.
+		colLibros isEmpty ifFalse:[ libroRepetido := colLibros anySatisfy:[:libroRep | libroRep verificarNombre: ((colCampos at:4) getTexto) asString ]].
+		(faltanCampos or: libroRepetido) ifFalse:[
 			libro := ventana buscarLibro:(((colCampos at:4) getTexto) asString) biblotecaId:(((colCampos at:3)getTexto) asString)asInteger.
 			(libro isNil) ifFalse: [ 
-				Transcript show:'ENTRO EN LIBRO TRUE'.
 				scrollLibros agregarTexto: (libro getNombre).
 				colLibros add:libro.
 			 ]
