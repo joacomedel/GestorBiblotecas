@@ -59,23 +59,23 @@ Biblioteca >> buscarLibro:nombreLibro [
 ]
 
 { #category : #'as yet unclassified' }
-Biblioteca >> devolverNombreId [
-	"comment stating purpose of instance-side method"
-	"scope: class-variables  &  instance-variables"	
-			
-	^ (nombre , ' ',(identificador asString))
-]
-
-{ #category : #'as yet unclassified' }
-Biblioteca >> devolverPrestamosDeUsuario:usuario [
+Biblioteca >> buscarPrestamosDeUsuario:usuario [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
 	|prestamosRetornar|
 	prestamosRetornar := OrderedCollection new.
-	Transcript show: ' ENTRA EN DEOLVERPRESTAMOSDEUSUARIO  '.
-	prestamos do: [:prestamo | |bool| bool := (prestamo verificarUsuario: usuario).bool ifTrue:[prestamosRetornar add: prestamo . Transcript show: ' ENCONTRO PRESTAMO COMO USUARIO ']].
+
+	prestamos do: [:prestamo | |bool| bool := (prestamo verificarUsuario: usuario).bool ifTrue:[prestamosRetornar add: prestamo.]].
 	^prestamosRetornar.
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> devolverNombreId [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ (nombre , ' ',(identificador asString))
 ]
 
 { #category : #'as yet unclassified' }

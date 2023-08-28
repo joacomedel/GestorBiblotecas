@@ -23,6 +23,14 @@ Controlador class >> newControlador [
 ]
 
 { #category : #'as yet unclassified' }
+Controlador >> agregarBibliotecaDeInteres:idBiblioteca usuario:dniUsuario [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	modelo agregarBibliotecaDeInteres:idBiblioteca usuario:dniUsuario.
+]
+
+{ #category : #'as yet unclassified' }
 Controlador >> agregarDependencias:colVisuales [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	

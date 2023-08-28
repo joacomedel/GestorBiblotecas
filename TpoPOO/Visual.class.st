@@ -20,6 +20,14 @@ Visual class >> newVisual:controladorIn [
 ]
 
 { #category : #'as yet unclassified' }
+Visual >> agregarBibliotecaDeInteres:idBiblioteca usuario:dniUsuario [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	controlador agregarBibliotecaDeInteres:idBiblioteca usuario:dniUsuario.
+]
+
+{ #category : #'as yet unclassified' }
 Visual >> agregarDependencias [
 
 	|informacionBibloteca informacionUsuario colVisuales|

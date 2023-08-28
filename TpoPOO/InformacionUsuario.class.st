@@ -12,7 +12,9 @@ Class {
 		'botonModalidad',
 		'botonPrestamo',
 		'botonLibro',
-		'botonReiniciar'
+		'botonReiniciar',
+		'botonBibliotecaInteres',
+		'botonDevolverPrestamo'
 	],
 	#category : #'TpoPOO-Visual'
 }
@@ -37,7 +39,7 @@ InformacionUsuario >> agregarLibro [
 "comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 		|libro faltanCampos libroRepetido|
-		faltanCampos := colCampos anySatisfy:[:campo | (campo text) isEmpty].
+		faltanCampos := ((colCampos at:3) text) isEmpty or: ((colCampos at:4) text) isEmpty.
 		libroRepetido := false.
 		colLibros isEmpty ifFalse:[ libroRepetido := colLibros anySatisfy:[:libroRep | libroRep verificarNombre: ((colCampos at:4) getTexto) asString ]].
 		(faltanCampos or: libroRepetido) ifFalse:[
@@ -94,15 +96,18 @@ InformacionUsuario >> iniciarInterfaz [
 	colCampos add:(CampoDeTexto crear:'DNI Usuario').
 	colCampos add:(CampoDeTexto crear:'Contraseña').
 	colCampos add:(CampoDeTexto crear:'Id bibloteca').
-	colCampos add:(CampoDeTexto crear:'Nombre libro').	
+	colCampos add:(CampoDeTexto crear:'Nombre libro').
+	colCampos add:(CampoDeTexto crear:'Numero de Prestamo').		
 	self addMorph: (colCampos at:1).
 	self addMorph: (colCampos at:2).
 	self addMorph: (colCampos at:3).
 	self addMorph: (colCampos at:4).
+	self addMorph: (colCampos at:5).
 	(colCampos at:1) position: 10@20.
 	(colCampos at:2) position: 230@20.
 	(colCampos at:3) position: 10@60.
 	(colCampos at:4) position: 230@60.
+	(colCampos at:5) position: 230@100.
 	
 	"Inicializamos el boton de accion"
 	botonBuscar := BotonTipo1 crear: 'Buscar'.
@@ -194,6 +199,16 @@ InformacionUsuario >> usuarioEncontrado [
 	botonLibro mouseAction:[self agregarLibro].
 	self addMorph:botonLibro.
 	botonLibro position: (ventana position) + (210@620).
+	
+	botonBibliotecaInteres  := BotonTipo1 crear:'agregarBibliotecaInteres'x:230 y:40. 
+	botonBibliotecaInteres mouseAction:[ventana agregarBibliotecaDeInteres:(((colCampos at:3) getTexto)asInteger) usuario:((colCampos at:1) getTexto)].
+	self addMorph:botonBibliotecaInteres.
+	botonBibliotecaInteres position: (ventana position) + (210@570).
+	
+	botonDevolverPrestamo := BotonTipo1 crear:'Devolver Prestamo'x:160 y:40.
+	botonDevolverPrestamo mouseAction: [ ventana devolverPrestamo: ((colCampos at:5)getTexto)asInteger dniUsuario:(colDatos at:3) asInteger. ].
+	self addMorph: botonDevolverPrestamo.
+	botonDevolverPrestamo position:(ventana position) + (40@570).
 	 
 	
 	

@@ -18,6 +18,14 @@ Ventana class >> crear:visualIn [
 ]
 
 { #category : #'as yet unclassified' }
+Ventana >> agregarBibliotecaDeInteres:idBiblioteca usuario:dniUsuario [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	visual agregarBibliotecaDeInteres:idBiblioteca usuario:dniUsuario.
+]
+
+{ #category : #'as yet unclassified' }
 Ventana >> alternarModalidad:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -74,6 +82,14 @@ Ventana >> devolverBiblotecasInfo [
 	"scope: class-variables  &  instance-variables"	
 			
 	^ visual devolverBiblotecasInfo.
+]
+
+{ #category : #'as yet unclassified' }
+Ventana >> devolverPrestamo:inxPrestamo dniUsuario:usuario [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	
 ]
 
 { #category : #'as yet unclassified' }

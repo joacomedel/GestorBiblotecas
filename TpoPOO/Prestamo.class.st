@@ -2,11 +2,15 @@ Class {
 	#name : #Prestamo,
 	#superclass : #Object,
 	#instVars : [
-		'fechaPrestamo',
+		'fechaInicioPrestamo',
 		'usuario',
-		'fechaEntrega',
+		'fechaFinPrestamo',
 		'libros',
-		'fechaDevolucion'
+		'fechaUsuarioDevuele',
+		'idPrestamo'
+	],
+	#classInstVars : [
+		'cantPrestamos'
 	],
 	#category : #'TpoPOO-Modelo'
 }
@@ -15,18 +19,20 @@ Class {
 Prestamo class >> crearPrestamo:colLibros usuario:usuarioIn [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"	
-			
+	cantPrestamos isNil ifTrue:[cantPrestamos := 1.];ifFalse:[cantPrestamos := cantPrestamos +1].
 	^self new iniciarPrestamo:colLibros usuario: usuarioIn. 
 ]
 
-{ #category : #accessing }
-Prestamo >> fechaEntrega: unaFecha [
-	fechaEntrega := unaFecha
+{ #category : #'as yet unclassified' }
+Prestamo class >> getCantPrestamos [
+	^cantPrestamos.
 ]
 
-{ #category : #accessing }
-Prestamo >> fechaPrestamo: unaFecha [
-	fechaPrestamo := unaFecha
+{ #category : #'as yet unclassified' }
+Prestamo >> agregarMulta [.
+	"scope: class-variables  &  instance-variables"	
+			
+	fechaFinPrestamo > Date today ifTrue:[usuario agregarDiasMulta:1].
 ]
 
 { #category : #'as yet unclassified' }
@@ -36,7 +42,7 @@ Prestamo >> getInfoPrestamo [
 		|nombresLibro|
 		nombresLibro := ''.
 		libros do:[:libro |nombresLibro := nombresLibro , (libro getNombre) , ' '].
-	^ 'dni: ', (usuario getDni) asString , ' ' , 'libros: ' ,nombresLibro. 
+	^ 'dni: ', (usuario getDni) asString ,'idPrestamo' , idPrestamo asString , ' ' , 'libros: ' ,nombresLibro. 
 	
 ]
 
@@ -46,6 +52,10 @@ Prestamo >> iniciarPrestamo:colLibros usuario:usuarioIn [
 	"scope: class-variables  &  instance-variables"	
 		libros := colLibros.
 		usuario := usuarioIn.
+		fechaInicioPrestamo := Date today.
+		fechaFinPrestamo := Date today + 30.
+		idPrestamo := Prestamo getCantPrestamos.
+		
 	
 ]
 

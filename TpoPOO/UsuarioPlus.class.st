@@ -1,6 +1,9 @@
 Class {
 	#name : #UsuarioPlus,
 	#superclass : #TipoUsuario,
+	#instVars : [
+		'alDia'
+	],
 	#category : #'TpoPOO-Modelo'
 }
 
@@ -13,6 +16,23 @@ UsuarioPlus >> esPlus [
 ]
 
 { #category : #'as yet unclassified' }
+UsuarioPlus >> estaAlDia [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^alDia clone.
+]
+
+{ #category : #'as yet unclassified' }
+UsuarioPlus >> iniciar:usuarioIn [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	super iniciar:usuarioIn.
+	alDia := true.
+]
+
+{ #category : #'as yet unclassified' }
 UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 
 	"comment stating purpose of instance-side method"
@@ -22,7 +42,7 @@ UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 	| bibloteca indxLibros cantLibros librosTipoAudio retornar |
 	librosTipoAudio := OrderedCollection new.
 	bibloteca := usuario buscarBiblotecaInteres: idBibloteca.
-	bibloteca isNotNil
+	(bibloteca isNotNil and: self estaAlDia )
 		ifFalse: [ retornar := -1 ];
 		ifTrue: [ 
 			indxLibros := 1.
@@ -30,7 +50,7 @@ UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 			indxLibros to: cantLibros do: [ :i | "Recolecto los libros tipo audio"
 					| libro |
 					libro := colLibros at: i.
-					libro getTipo = 'audio' ifTrue: [ 
+					libro getTipo = 'audioLibro' ifTrue: [ 
 							librosTipoAudio add: libro.
 							colLibros removeAt: i ] ].
 			(bibloteca usuarioPrestamosMaximos: usuario)
@@ -43,10 +63,12 @@ UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 						ifTrue: [ "Si no tiene espacio para prestamos" ];
 						ifFalse: [ 
 							colLibros isNotEmpty ifTrue: [ 
+									retornar := 1.
 									bibloteca agregarPrestamo:
 											(Prestamo crearPrestamo: colLibros usuario: usuario) ].
 							librosTipoAudio isNotEmpty ifTrue: [ 
+									retornar := 1.
 									bibloteca agregarPrestamo:
 											(Prestamo crearPrestamo: colLibros usuario: usuario) ] ] ] ].
-							^retornar
+	^ retornar
 ]

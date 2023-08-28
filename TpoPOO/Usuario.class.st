@@ -7,7 +7,8 @@ Class {
 		'dni',
 		'contraseña',
 		'colBibliotecasInteres',
-		'tipo'
+		'tipo',
+		'diasMulta'
 	],
 	#category : #'TpoPOO-Modelo'
 }
@@ -19,7 +20,16 @@ Usuario class >> nuevoNombre: unNombre apellido: unApellido dni: unDni contrasen
 
 { #category : #'as yet unclassified' }
 Usuario >> agregarBibliotecaDeInteres: unaBiblioteca [
+	Transcript show:' AgregaBibliotecaDeInteres '.
 	colBibliotecasInteres add: unaBiblioteca
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> agregarDiasMulta:k [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	diasMulta := diasMulta + k.
 ]
 
 { #category : #'as yet unclassified' }
@@ -38,7 +48,9 @@ Usuario >> buscarBiblotecaInteres:idBibloteca [
 		colBibliotecasInteres do: [ :bibl | "Busco la bibloteca"
 		| bool |
 		bool := bibl verificarId: idBibloteca.
-		bool ifTrue: [ bibloteca := bibl ] ].		
+		bool ifTrue: [ bibloteca := bibl.Transcript show: 'Encuentra biblioteca de interes'. ] ].
+		
+				
 		^bibloteca.
 ]
 
@@ -67,6 +79,7 @@ Usuario >> inicializarNombre: unNombre apellido: unApellido dni: unDni contrase�
    contraseña := unaContrasena.
 	unPlus ifTrue:[tipo := UsuarioPlus crear: self ];ifFalse:[tipo := UsuarioNormal crear: self ].
    	colBibliotecasInteres  := OrderedCollection new.
+	diasMulta := 0.
 ]
 
 { #category : #'as yet unclassified' }
@@ -83,6 +96,15 @@ Usuario >> recopilarDatos [
 	colDatos add: stringPlus.
 	Transcript show: 'Recopila datos'.
 	^colDatos.
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> registarPrestamo:colLibros  idBibloteca: idBibloteca [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	|retornar|
+	(diasMulta <= 0) ifTrue:[tipo registarPrestamo:colLibros  idBibloteca: idBibloteca.];ifFalse: [ retornar := -3 ].		
+	^ retornar
 ]
 
 { #category : #'as yet unclassified' }
