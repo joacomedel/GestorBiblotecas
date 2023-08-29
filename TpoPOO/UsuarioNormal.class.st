@@ -26,14 +26,15 @@ UsuarioNormal >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 	bibloteca isNotNil
 		ifFalse: [ retornar := -1 ];
 		ifTrue: [ 
-			indxLibros := 1.
+			"indxLibros := 1.
 			cantLibros := colLibros size.
-			indxLibros to: cantLibros do: [ :i | "Recolecto los libros tipo audio"
+			indxLibros to: cantLibros do: [ :i | 
 					| libro |
 					libro := colLibros at: i.
 					libro getTipo = 'audioLibro' ifTrue: [ 
 							librosTipoAudio add: libro.
-							colLibros removeAt: i ] ].
+							colLibros removeAt: i ] ]."
+			colLibros do:[:lib ||bool| bool := lib getTipo = 'audioLibro'.bool ifTrue:[librosTipoAudio add:lib.colLibros remove:lib]].
 			librosTipoAudio isEmpty
 				ifFalse: [ retornar := -2 ];
 				ifTrue: [ 

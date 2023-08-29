@@ -48,12 +48,10 @@ AgregarBibloteca >> agregarLibros [
 	tipo := (colCamposLib at:5) getTexto. 
 	faltanCampos  := colCamposLib  anySatisfy:[:campo | campo text isEmpty].
 	tipoMalIngresado := ((tipo ~= 'audio' and: tipo ~= 'libro') and: tipo ~= 'elec').
-	Transcript show: tipoMalIngresado.
 	(faltanCampos or:tipoMalIngresado) ifFalse: [ scrollLibros agregarTexto: (nombreIn ,'||  ', autoresIn).
 	colNombreAutores := OrderedCollection new.
 	subStrings := ((autoresIn asString) substrings: ', ').
 	subStrings do: [:subString | colNombreAutores add: subString.].
-	"colLibros add: (ventana crearLibro:nombreIn editorial:editorialIn anioEdicion:anioIn  autores:colNombreAutores)."
 	colLibros add: (ventana crearLibro:nombreIn editorial:editorialIn anioEdicion:anioIn  autores:colNombreAutores tipo:tipo).
 	self mostrarAviso:3.
 	] 

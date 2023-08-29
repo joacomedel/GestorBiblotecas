@@ -206,7 +206,7 @@ InformacionUsuario >> usuarioEncontrado [
 	botonBibliotecaInteres position: (ventana position) + (210@570).
 	
 	botonDevolverPrestamo := BotonTipo1 crear:'Devolver Prestamo'x:160 y:40.
-	botonDevolverPrestamo mouseAction: [ ventana devolverPrestamo: ((colCampos at:5)getTexto)asInteger dniUsuario:(colDatos at:3) asInteger. ].
+	botonDevolverPrestamo mouseAction: [ ventana devolverPrestamo: ((colCampos at:3)getTexto)asInteger dniUsuario:(colDatos at:3). ].
 	self addMorph: botonDevolverPrestamo.
 	botonDevolverPrestamo position:(ventana position) + (40@570).
 	 

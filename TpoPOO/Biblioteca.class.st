@@ -79,6 +79,26 @@ Biblioteca >> devolverNombreId [
 ]
 
 { #category : #'as yet unclassified' }
+Biblioteca >> devolverPrestamo:usuario [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	| prestamosDeUsuario |		
+	prestamosDeUsuario  := self buscarPrestamosDeUsuario: usuario.
+	prestamosDeUsuario do: [:prestamo | prestamo devolver].
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> generarListadoUsuariosRetrasados [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|colRetornar|
+	colRetornar := OrderedCollection new.
+	prestamos do: [:prestamo | |bool| bool := prestamo estaAtrasado. bool ifTrue:[colRetornar add: prestamo getUsuario]].
+	^colRetornar.
+]
+
+{ #category : #'as yet unclassified' }
 Biblioteca >> getColInfo [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -121,6 +141,14 @@ Biblioteca >> registrarPrestamo:prestamo [
 	"scope: class-variables  &  instance-variables"	
 	Transcript show:'Registro el prestamo'.
 	prestamos add:prestamo.
+]
+
+{ #category : #'as yet unclassified' }
+Biblioteca >> sacarLibro:nombreLibro [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	libros do:[:lib | |bool| bool := lib verificarNombre: nombreLibro . bool ifTrue:[libros remove:lib]].
+	
 ]
 
 { #category : #'as yet unclassified' }

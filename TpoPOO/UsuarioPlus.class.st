@@ -42,17 +42,22 @@ UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 	| bibloteca indxLibros cantLibros librosTipoAudio retornar |
 	librosTipoAudio := OrderedCollection new.
 	bibloteca := usuario buscarBiblotecaInteres: idBibloteca.
-	(bibloteca isNotNil and: self estaAlDia )
+	(bibloteca isNotNil and: self estaAlDia)
 		ifFalse: [ retornar := -1 ];
-		ifTrue: [ 
-			indxLibros := 1.
+		ifTrue: [ "indxLibros := 1.
 			cantLibros := colLibros size.
-			indxLibros to: cantLibros do: [ :i | "Recolecto los libros tipo audio"
+			indxLibros to: cantLibros do: [ :i | 
 					| libro |
 					libro := colLibros at: i.
 					libro getTipo = 'audioLibro' ifTrue: [ 
 							librosTipoAudio add: libro.
-							colLibros removeAt: i ] ].
+							colLibros removeAt: i ] ]."
+			colLibros do: [ :lib | 
+					| bool |
+					bool := lib getTipo = 'audioLibro'.
+					bool ifTrue: [ 
+							librosTipoAudio add: lib.
+							colLibros remove: lib ] ].
 			(bibloteca usuarioPrestamosMaximos: usuario)
 				ifTrue: [ retornar := -2 ];
 				ifFalse: [ 
@@ -69,6 +74,6 @@ UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 							librosTipoAudio isNotEmpty ifTrue: [ 
 									retornar := 1.
 									bibloteca agregarPrestamo:
-											(Prestamo crearPrestamo: colLibros usuario: usuario) ] ] ] ].
+											(Prestamo crearPrestamo: librosTipoAudio usuario: usuario) ] ] ] ].
 	^ retornar
 ]

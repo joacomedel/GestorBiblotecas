@@ -39,6 +39,14 @@ Controlador >> agregarDependencias:colVisuales [
 ]
 
 { #category : #'as yet unclassified' }
+Controlador >> agregarLibrosABiblioteca:colLibros idBiblioteca:idBiblioteca [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^modelo agregarLibrosABiblioteca: colLibros idBiblioteca: idBiblioteca.
+]
+
+{ #category : #'as yet unclassified' }
 Controlador >> alternarModalidad:dni contraseña:contraseña [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
@@ -89,6 +97,14 @@ Controlador >> devolverBiblotecasInfo [
 ]
 
 { #category : #'as yet unclassified' }
+Controlador >> devolverPrestamo:idBiblioteca dniUsuario:dniUsuario [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	modelo devolverPrestamo:idBiblioteca dniUsuario:dniUsuario.
+]
+
+{ #category : #'as yet unclassified' }
 Controlador >> infoBibloteca:id [
 
 	^(modelo infoBibloteca:id).
@@ -130,4 +146,12 @@ Controlador >> registrarUsuario: unNombre apellido: unApellido dni: unDni contra
 	
 	registro := modelo registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena: unaContrasena plus:unPlus.
 	^registro
+]
+
+{ #category : #'as yet unclassified' }
+Controlador >> sacarLibro:idBiblioteca nombreLibro:nomLibro [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^ modelo sacarLibro:idBiblioteca nombreLibro:nomLibro.
 ]

@@ -105,4 +105,5 @@ InformacionBibloteca >> update:asd [
 	"scope: class-variables  &  instance-variables"	
 	
 	self actualizarBibloteca.
+	self mostrarBibloteca.
 ]

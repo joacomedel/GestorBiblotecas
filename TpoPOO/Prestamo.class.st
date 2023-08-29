@@ -19,7 +19,7 @@ Class {
 Prestamo class >> crearPrestamo:colLibros usuario:usuarioIn [
 	"comment stating purpose of class-side method"
 	"scope: class-variables  &  class-instance-variables"	
-	cantPrestamos isNil ifTrue:[cantPrestamos := 1.];ifFalse:[cantPrestamos := cantPrestamos +1].
+	cantPrestamos := cantPrestamos +1.
 	^self new iniciarPrestamo:colLibros usuario: usuarioIn. 
 ]
 
@@ -29,10 +29,35 @@ Prestamo class >> getCantPrestamos [
 ]
 
 { #category : #'as yet unclassified' }
+Prestamo class >> iniciarVariablesDeClase [ 
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"	
+			
+	cantPrestamos := 0.
+]
+
+{ #category : #'as yet unclassified' }
 Prestamo >> agregarMulta [.
 	"scope: class-variables  &  instance-variables"	
 			
-	fechaFinPrestamo > Date today ifTrue:[usuario agregarDiasMulta:1].
+	self estaAtrasado  ifTrue:[usuario agregarDiasMulta:1].
+]
+
+{ #category : #'as yet unclassified' }
+Prestamo >> devolver [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	Transcript show: ' PRESTAMO DEVUELTO '.
+	fechaUsuarioDevuele := Date today.
+	
+]
+
+{ #category : #'as yet unclassified' }
+Prestamo >> estaAtrasado [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^fechaFinPrestamo < Date today.
 ]
 
 { #category : #'as yet unclassified' }
@@ -42,8 +67,16 @@ Prestamo >> getInfoPrestamo [
 		|nombresLibro|
 		nombresLibro := ''.
 		libros do:[:libro |nombresLibro := nombresLibro , (libro getNombre) , ' '].
-	^ 'dni: ', (usuario getDni) asString ,'idPrestamo' , idPrestamo asString , ' ' , 'libros: ' ,nombresLibro. 
+	^ 'dni: ', (usuario getDni) asString ,'idPrestamo: ' , idPrestamo asString , ' ' , 'libros: ' ,nombresLibro. 
 	
+]
+
+{ #category : #'as yet unclassified' }
+Prestamo >> getUsuario [.
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	^usuario
 ]
 
 { #category : #'as yet unclassified' }
@@ -54,7 +87,7 @@ Prestamo >> iniciarPrestamo:colLibros usuario:usuarioIn [
 		usuario := usuarioIn.
 		fechaInicioPrestamo := Date today.
 		fechaFinPrestamo := Date today + 30.
-		idPrestamo := Prestamo getCantPrestamos.
+		idPrestamo := self class getCantPrestamos.
 		
 	
 ]
@@ -77,5 +110,5 @@ Prestamo >> verificarUsuario:usuarioIn [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
-	^usuario = usuarioIn .
+	^usuario = usuarioIn and: fechaUsuarioDevuele isNil.
 ]

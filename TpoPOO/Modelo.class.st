@@ -20,6 +20,7 @@ Modelo class >> newModelo:controladorIn [
 	modelo incializar:controladorIn.
 	"Inicializo variables de clase del modelo"
 	Biblioteca iniciarVariablesDeClase.
+	Prestamo iniciarVariablesDeClase.
 	^modelo.
 ]
 
@@ -38,6 +39,18 @@ Modelo >> agregarDependencias:colVisuales [
 		Biblioteca addDependent: (colVisuales at:1).
 		Usuario addDependent: (colVisuales at:2).
 	
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> agregarLibrosABiblioteca:colLibros idBiblioteca:idBiblioteca [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|biblioteca|
+	Transcript show:'Entra en agregarLibrosABiblioteca'.
+	colBiblotecas do:[:bib ||bool| bool := bib verificarId:idBiblioteca. bool ifTrue:[biblioteca := bib]].
+	biblioteca isNotNil ifTrue: [colLibros do:[:libro| biblioteca agregarLibro:libro]].
+	Biblioteca changed.
 ]
 
 { #category : #'as yet unclassified' }
@@ -110,23 +123,35 @@ Modelo >> crearLibro:nombreIn editorial:editorialIn anioEdicion:anioEdicion  aut
 ]
 
 { #category : #'as yet unclassified' }
-Modelo >> devolverBiblotecasInfo [
+Modelo >> devolverBiblotecasInfo [ 
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
+			
 			|colBiblInfos|
 	colBiblInfos := OrderedCollection new.
 	colBiblotecas do: [:bibl | colBiblInfos add: (bibl devolverNombreId)].
 	^colBiblInfos 
-	
 ]
 
 { #category : #'as yet unclassified' }
-Modelo >> devolverPrestamo:inxPrestamo dniUsuario:dniUsuario [
+Modelo >> devolverPrestamo:idBiblioteca dniUsuario:dniUsuario [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-	|usuario|
-	colUsuarios do:[:us | |bool| bool := us verificarDni: dniUsuario . bool ifTrue:[usuario := us.]].
-	usuario isNotNil ifTrue:[].
+	|usuario biblioteca|
+	colUsuarios do:[:us | |bool| bool := us verificarDni: dniUsuario . bool ifTrue:[usuario := us.Transcript show: 'Encontro usuario']].
+	colBiblotecas do:[:bibl | |bool| bool := bibl verificarId:idBiblioteca. bool ifTrue:[biblioteca := bibl] ].
+	(usuario isNotNil and: biblioteca isNotNil) ifTrue:[ biblioteca devolverPrestamo: usuario].
+	Usuario changed.
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> generarListadoUsuariosRetrasados [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+	|colRetornar|
+	colRetornar := OrderedCollection new.
+	colBiblotecas do:[:bibl | |col| col := bibl generarListadoUsuariosRetrasados . col do:[:us | colRetornar add:us]].
+	^colRetornar 
 ]
 
 { #category : #'as yet unclassified' }
@@ -207,4 +232,17 @@ Modelo >> registrarUsuario: unNombre apellido: unApellido dni: unDni contrasena:
 	existeUsuario ifFalse: [colUsuarios add: (Usuario nuevoNombre: unNombre  apellido: unApellido   dni: unDni   contrasena: unaContrasena plus:unPlus)].
 	
 	^existeUsuario not.
+]
+
+{ #category : #'as yet unclassified' }
+Modelo >> sacarLibro:idBiblioteca nombreLibro:nomLibro [
+	"comment stating purpose of instance-side method"
+	"scope: class-variables  &  instance-variables"	
+			
+	|biblioteca|
+	
+	colBiblotecas do:[:bib | |bool| bool := bib verificarId: idBiblioteca. bool ifTrue: [biblioteca := bib]].
+	biblioteca isNotNil ifTrue:[biblioteca sacarLibro:nomLibro].
+	Biblioteca changed.
+	
 ]
