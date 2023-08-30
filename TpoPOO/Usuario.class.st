@@ -48,7 +48,7 @@ Usuario >> buscarBiblotecaInteres:idBibloteca [
 		colBibliotecasInteres do: [ :bibl | "Busco la bibloteca"
 		| bool |
 		bool := bibl verificarId: idBibloteca.
-		bool ifTrue: [ bibloteca := bibl.Transcript show: 'Encuentra biblioteca de interes'. ] ].
+		bool ifTrue: [ bibloteca := bibl. ] ].
 		
 				
 		^bibloteca.
@@ -102,8 +102,9 @@ Usuario >> recopilarDatos [
 Usuario >> registarPrestamo:colLibros  idBibloteca: idBibloteca [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
-	|retornar|
-	(diasMulta <= 0) ifTrue:[tipo registarPrestamo:colLibros  idBibloteca: idBibloteca.];ifFalse: [ retornar := -3 ].		
+	|retornar biblioteca|
+	biblioteca := self buscarBiblotecaInteres: idBibloteca.
+	((diasMulta <= 0) and:biblioteca isNotNil) ifTrue:[tipo registarPrestamo:colLibros  idBibloteca: biblioteca.];ifFalse: [ retornar := -3 ].		
 	^ retornar
 ]
 

@@ -31,8 +31,8 @@ Visual >> agregarBibliotecaDeInteres:idBiblioteca usuario:dniUsuario [
 Visual >> agregarDependencias [
 
 	|informacionBibloteca informacionUsuario colVisuales|
-	informacionBibloteca := ventana getInterfaz:5.
-	informacionUsuario := ventana getInterfaz:6.
+	informacionBibloteca := ventana getInterfaz:4.
+	informacionUsuario := ventana getInterfaz:5.
 	colVisuales := OrderedCollection new.
 	colVisuales add: informacionBibloteca;add:informacionUsuario.
 	controlador agregarDependencias: colVisuales.

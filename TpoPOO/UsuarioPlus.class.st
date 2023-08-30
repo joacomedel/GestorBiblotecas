@@ -16,7 +16,7 @@ UsuarioPlus >> esPlus [
 ]
 
 { #category : #'as yet unclassified' }
-UsuarioPlus >> estaAlDia [.
+UsuarioPlus >> estaAlDia [
 	"comment stating purpose of instance-side method"
 	"scope: class-variables  &  instance-variables"	
 			
@@ -33,26 +33,15 @@ UsuarioPlus >> iniciar:usuarioIn [
 ]
 
 { #category : #'as yet unclassified' }
-UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
+UsuarioPlus >> registarPrestamo: colLibros idBibloteca: bibloteca [
 
 	"comment stating purpose of instance-side method"
 
 	"scope: class-variables  &  instance-variables"
 
-	| bibloteca indxLibros cantLibros librosTipoAudio retornar |
+	| librosTipoAudio retornar |
 	librosTipoAudio := OrderedCollection new.
-	bibloteca := usuario buscarBiblotecaInteres: idBibloteca.
-	(bibloteca isNotNil and: self estaAlDia)
-		ifFalse: [ retornar := -1 ];
-		ifTrue: [ "indxLibros := 1.
-			cantLibros := colLibros size.
-			indxLibros to: cantLibros do: [ :i | 
-					| libro |
-					libro := colLibros at: i.
-					libro getTipo = 'audioLibro' ifTrue: [ 
-							librosTipoAudio add: libro.
-							colLibros removeAt: i ] ]."
-			colLibros do: [ :lib | 
+	colLibros do: [ :lib | 
 					| bool |
 					bool := lib getTipo = 'audioLibro'.
 					bool ifTrue: [ 
@@ -74,6 +63,6 @@ UsuarioPlus >> registarPrestamo: colLibros idBibloteca: idBibloteca [
 							librosTipoAudio isNotEmpty ifTrue: [ 
 									retornar := 1.
 									bibloteca agregarPrestamo:
-											(Prestamo crearPrestamo: librosTipoAudio usuario: usuario) ] ] ] ].
+											(Prestamo crearPrestamo: librosTipoAudio usuario: usuario) ] ] ].
 	^ retornar
 ]

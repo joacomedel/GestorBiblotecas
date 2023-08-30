@@ -133,12 +133,10 @@ Ventana >> iniciarInterfaces [
 			
 	colInterfaces add: (Menu crear:self). "1"
 	colInterfaces add: (AgregarBibloteca crear:self)."2"
-	colInterfaces add: (CambiarModalidad  crear:self)."3"
-	colInterfaces add: (ActualizarBibloteca crear:self)."4"
-	colInterfaces add: (InformacionBibloteca  crear:self)."5"
-	colInterfaces add: (InformacionUsuario  crear:self)."6"
-	colInterfaces add: (RegistrarUsuario  crear:self)."7"
-	colInterfaces add: (SolicitarPrestamo crear:self)."8"
+	colInterfaces add: (ActualizarBibloteca crear:self)."3"
+	colInterfaces add: (InformacionBibloteca  crear:self)."4"
+	colInterfaces add: (InformacionUsuario  crear:self)."5"
+	colInterfaces add: (RegistrarUsuario  crear:self)."6"
 ]
 
 { #category : #'window management' }

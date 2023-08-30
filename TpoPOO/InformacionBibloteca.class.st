@@ -81,11 +81,11 @@ InformacionBibloteca >> mostrarBibloteca [
 			];ifFalse:[
 			
 			
-			infoBibloteca agregarTexto: 'ID' , (colDatosBib at:1) asString.
-			infoBibloteca agregarTexto: 'nombre' , (colDatosBib at:2).
-			infoBibloteca agregarTexto: 'Dir' , (colDatosBib at:3).
-			infoBibloteca agregarTexto: 'nombreRepresentante' , (colDatosBib at:4).
-			infoBibloteca agregarTexto: 'telefonoRepresentante' , (colDatosBib at:5).
+			infoBibloteca agregarTexto: 'ID:' , (colDatosBib at:1) asString.
+			infoBibloteca agregarTexto: 'nombre:' , (colDatosBib at:3).
+			infoBibloteca agregarTexto: 'Dir:' , (colDatosBib at:2).
+			infoBibloteca agregarTexto: 'nombreRepresentante:' , (colDatosBib at:5).
+			infoBibloteca agregarTexto: 'telefonoRepresentante:' , (colDatosBib at:4).
 			"Agrego scroll con los libros "
 			colDatosLib := (colDatosBib at:6).
 			colDatosLib do: [:datosLib | scrollLibros agregarTexto: datosLib ].
